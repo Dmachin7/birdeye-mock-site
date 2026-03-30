@@ -309,39 +309,32 @@
     .nav-links a:hover { color: var(--white); }
     .nav-links a:hover::after { width: 100%; }
 
-    /* Hamburger — cross-fades into drone SVG on open */
+    /* Hamburger */
     .hamburger {
       display: none;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
+      gap: 5px;
       width: 44px;
       height: 44px;
       z-index: 1001;
       position: relative;
     }
 
-    .ham-icon,
-    .ham-drone {
-      position: absolute;
-      transition: opacity 0.28s var(--ease), transform 0.32s var(--ease);
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.3s var(--ease), opacity 0.3s;
+      transform-origin: center;
     }
 
-    /* Closed state: lines visible, drone hidden */
-    .ham-icon  { opacity: 1; transform: scale(1)   rotate(0deg); }
-    .ham-drone { opacity: 0; transform: scale(0.6) rotate(-15deg); }
-
-    /* Open state: lines hidden, drone visible + gentle hover */
-    .hamburger.open .ham-icon  { opacity: 0; transform: scale(0.6) rotate(15deg); }
-    .hamburger.open .ham-drone {
-      opacity: 1;
-      transform: scale(1) rotate(0deg);
-      animation: hamDroneHover 2.2s ease-in-out infinite;
-    }
-
-    @keyframes hamDroneHover {
-      0%, 100% { transform: scale(1) translateY(0px); }
-      50%       { transform: scale(1) translateY(-3px); }
-    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* Mobile overlay */
     .mobile-nav {
@@ -591,7 +584,7 @@
     .faa-badge {
       position: absolute;
       bottom: 80px;
-      left: 50%;
+      left: 36px;
       z-index: 3;
       display: flex;
       align-items: center;
@@ -607,8 +600,7 @@
       color: rgba(255,255,255,0.65);
       white-space: nowrap;
       opacity: 0;
-      /* custom animation preserves translateX(-50%) centering */
-      animation: faaFadeUp 0.8s var(--ease) 1.3s forwards;
+      animation: heroFadeUp 0.8s var(--ease) 1.3s forwards;
       backdrop-filter: blur(8px);
     }
 
@@ -1340,7 +1332,9 @@
       }
 
       .faa-badge {
+        left: 50%;
         bottom: 72px;
+        animation: faaFadeUp 0.8s var(--ease) 1.3s forwards;
       }
     }
 
@@ -1656,24 +1650,9 @@
 
       <!-- Hamburger -->
       <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-        <!-- Three lines (closed state) -->
-        <svg class="ham-icon" viewBox="0 0 24 18" width="24" height="18" fill="none" aria-hidden="true">
-          <line x1="0" y1="2"  x2="24" y2="2"  stroke="white" stroke-width="2" stroke-linecap="round"/>
-          <line x1="0" y1="9"  x2="24" y2="9"  stroke="white" stroke-width="2" stroke-linecap="round"/>
-          <line x1="0" y1="16" x2="24" y2="16" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <!-- Drone (open/close state) -->
-        <svg class="ham-drone" viewBox="0 0 80 56" width="34" height="24" fill="none" aria-hidden="true">
-          <rect x="30" y="23" width="20" height="10" rx="3" fill="#E21C21"/>
-          <line x1="10" y1="24" x2="30" y2="28" stroke="#E21C21" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="70" y1="24" x2="50" y2="28" stroke="#E21C21" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="10" y1="32" x2="30" y2="28" stroke="#E21C21" stroke-width="2.5" stroke-linecap="round"/>
-          <line x1="70" y1="32" x2="50" y2="28" stroke="#E21C21" stroke-width="2.5" stroke-linecap="round"/>
-          <ellipse cx="10" cy="28" rx="9" ry="3.5" fill="none" stroke="#E21C21" stroke-width="1.8" opacity="0.8"/>
-          <ellipse cx="70" cy="28" rx="9" ry="3.5" fill="none" stroke="#E21C21" stroke-width="1.8" opacity="0.8"/>
-          <rect x="36" y="32" width="8" height="6" rx="2" fill="rgba(226,28,33,0.65)"/>
-          <circle cx="40" cy="35" r="2" fill="#fff" opacity="0.6"/>
-        </svg>
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
 
     </div>
