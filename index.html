@@ -494,6 +494,20 @@
       max-width: 900px;
     }
 
+    /* Dark radial backing — softens the area behind the headline so text
+       reads cleanly against both video and the CSS fallback */
+    .hero-content::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 90% 75% at 50% 48%,
+        rgba(0,0,0,0.52) 0%,
+        rgba(0,0,0,0.28) 50%,
+        transparent 80%);
+      z-index: -1;
+      pointer-events: none;
+    }
+
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
@@ -530,6 +544,10 @@
       margin-bottom: 28px;
       opacity: 0;
       animation: heroFadeUp 0.8s var(--ease) 0.7s forwards;
+      text-shadow:
+        0 2px 12px rgba(0,0,0,0.9),
+        0 4px 40px rgba(0,0,0,0.75),
+        0 0 80px rgba(0,0,0,0.5);
     }
 
     .hero-headline span {
@@ -545,6 +563,7 @@
       margin: 0 auto 46px;
       opacity: 0;
       animation: heroFadeUp 0.8s var(--ease) 0.9s forwards;
+      text-shadow: 0 1px 10px rgba(0,0,0,0.95), 0 2px 24px rgba(0,0,0,0.8);
     }
 
     .hero-ctas {
@@ -565,7 +584,7 @@
     .faa-badge {
       position: absolute;
       bottom: 80px;
-      left: 36px;
+      left: 50%;
       z-index: 3;
       display: flex;
       align-items: center;
@@ -579,9 +598,16 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.65);
+      white-space: nowrap;
       opacity: 0;
-      animation: heroFadeUp 0.8s var(--ease) 1.3s forwards;
+      /* custom animation preserves translateX(-50%) centering */
+      animation: faaFadeUp 0.8s var(--ease) 1.3s forwards;
       backdrop-filter: blur(8px);
+    }
+
+    @keyframes faaFadeUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(22px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
 
     .faa-dot {
@@ -603,14 +629,19 @@
       position: absolute;
       bottom: 32px;
       left: 50%;
-      transform: translateX(-50%);
       z-index: 3;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 6px;
       opacity: 0;
-      animation: heroFadeUp 0.8s var(--ease) 1.5s forwards;
+      /* custom animation preserves translateX(-50%) centering */
+      animation: scrollHintFadeUp 0.8s var(--ease) 1.5s forwards;
+    }
+
+    @keyframes scrollHintFadeUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(22px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
 
     .scroll-hint span {
@@ -1302,10 +1333,7 @@
       }
 
       .faa-badge {
-        left: 50%;
-        transform: translateX(-50%);
         bottom: 72px;
-        white-space: nowrap;
       }
     }
 
