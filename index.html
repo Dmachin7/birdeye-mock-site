@@ -2178,14 +2178,10 @@
         const screen = document.getElementById('intro-screen');
         if (!screen) return;
 
-        // Check sessionStorage (graceful — may be blocked in private mode)
-        let alreadyPlayed = false;
-        try { alreadyPlayed = !!sessionStorage.getItem('birdeye_intro'); } catch (e) {}
-
-        // Also skip for users who prefer reduced motion
+        // Skip only for users who prefer reduced motion
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        if (alreadyPlayed || prefersReducedMotion) {
+        if (prefersReducedMotion) {
           screen.remove();
           return;
         }
@@ -2241,7 +2237,6 @@
             document.body.style.opacity = '1'; // lock before class removal
             document.body.classList.remove('intro-active');
             screen.remove();
-            try { sessionStorage.setItem('birdeye_intro', '1'); } catch (e) {}
           }, 520);
         }, 2350);
       })();
