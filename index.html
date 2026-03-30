@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BirdEye Promotions — Professional drone videography and photography in South Tampa, Florida. FAA Certified. Real estate, events, construction, commercial." />
+  <title>BirdEye Promotions | Aerial Videography &amp; Photography — South Tampa, FL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES
+       ============================================================ */
+    :root {
+      --black:    #0a0a0a;
+      --surface:  #111111;
+      --card:     #1a1a1a;
+      --border:   #242424;
+      --red:      #E21C21;
+      --red-dim:  rgba(226, 28, 33, 0.18);
+      --red-glow: rgba(226, 28, 33, 0.30);
+      --white:    #ffffff;
+      --off-white:#f0f0f0;
+      --gray:     #888888;
+      --light-gray: #555555;
+
+      --font-head: 'Bebas Neue', 'Barlow Condensed', sans-serif;
+      --font-body: 'Barlow', sans-serif;
+
+      --nav-h:    72px;
+      --section-pad: 100px 24px;
+      --max-w:    1200px;
+      --radius:   6px;
+
+      --ease:     cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--off-white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.65;
+      overflow-x: hidden;
+      opacity: 0;
+      animation: fadeInPage 0.7s var(--ease) 0.1s forwards;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul { list-style: none; }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+    }
+
+    /* ============================================================
+       PAGE LOAD ANIMATION
+       ============================================================ */
+    @keyframes fadeInPage {
+      to { opacity: 1; }
+    }
+
+    /* ============================================================
+       UTILITY
+       ============================================================ */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .section-sub {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--gray);
+      margin-top: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ============================================================
+       BUTTONS
+       ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 15px 34px;
+      border-radius: var(--radius);
+      transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease), background 0.22s var(--ease), color 0.22s var(--ease);
+      min-height: 50px;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+      box-shadow: 0 4px 20px rgba(226, 28, 33, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: #ff2a30;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(226, 28, 33, 0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.65);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      font-size: 0.72rem;
+      padding: 10px 22px;
+      min-height: 42px;
+    }
+
+    /* ============================================================
+       SCROLL FADE-IN
+       ============================================================ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in.delay-1 { transition-delay: 0.1s; }
+    .fade-in.delay-2 { transition-delay: 0.2s; }
+    .fade-in.delay-3 { transition-delay: 0.3s; }
+    .fade-in.delay-4 { transition-delay: 0.4s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      body { animation: none; opacity: 1; }
+      .hero-video { display: none; }
+      .hero-bg-css, .hero-bg-css::before { animation: none; }
+    }
+
+    /* ============================================================
+       NAVIGATION
+       ============================================================ */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      transition: background 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+      border-bottom: 1px solid transparent;
+    }
+
+    #navbar.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom-color: var(--border);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-inner {
+      max-width: var(--max-w);
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 1001;
+    }
+
+    .nav-logo-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+
+    .nav-logo-text .brand-name {
+      font-family: var(--font-head);
+      font-size: 1.55rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      line-height: 1;
+    }
+
+    .nav-logo-text .brand-sub {
+      font-family: var(--font-body);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+
+    /* Desktop links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.75);
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--red);
+      transition: width 0.25s var(--ease);
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      z-index: 1001;
+      position: relative;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.3s var(--ease), opacity 0.3s;
+      transform-origin: center;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile overlay */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.98);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      transform: translateX(100%);
+      transition: transform 0.4s var(--ease);
+    }
+
+    .mobile-nav.open {
+      transform: translateX(0);
+    }
+
+    .mobile-nav a {
+      font-family: var(--font-head);
+      font-size: 2.8rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      transition: color 0.2s;
+    }
+
+    .mobile-nav a:hover { color: var(--red); }
+
+    .mobile-nav-contact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+    }
+
+    .mobile-nav-contact a {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--gray);
+    }
+
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
+    #home {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    /* Hero background container */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* CSS fallback — slow-moving aerial radial gradient, always rendered under video */
+    .hero-bg-css {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 80% at 30% 40%, #1d1d1d 0%, #0e0e0e 45%, #050505 100%);
+      background-size: 200% 200%;
+      animation: bgDrift 26s ease-in-out infinite alternate;
+    }
+
+    /* Subtle drone-camera grid overlay on CSS fallback */
+    .hero-bg-css::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.026) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.026) 1px, transparent 1px);
+      background-size: 52px 52px;
+      animation: gridSlide 32s linear infinite;
+    }
+
+    @keyframes bgDrift {
+      0%   { background-position: 0% 20%; }
+      25%  { background-position: 80% 0%; }
+      50%  { background-position: 100% 65%; }
+      75%  { background-position: 35% 100%; }
+      100% { background-position: 20% 45%; }
+    }
+
+    @keyframes gridSlide {
+      0%   { background-position: 0 0; }
+      100% { background-position: 52px 52px; }
+    }
+
+    /* Video layer — sits above CSS fallback, hidden on error */
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    /* Dark overlay — rgba(0,0,0,0.55) over video (or fallback) */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Vignette — edge fade to black */
+    .hero-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 90% 90% at 50% 50%, transparent 40%, var(--black) 100%);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* Horizontal scan line — drone HUD effect */
+    .hero-scanline {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red) 30%, var(--red) 70%, transparent);
+      opacity: 0.18;
+      animation: scanMove 8s ease-in-out infinite;
+      z-index: 4;
+    }
+
+    @keyframes scanMove {
+      0%, 100% { top: 20%; opacity: 0; }
+      10%       { opacity: 0.18; }
+      50%       { top: 80%; opacity: 0.18; }
+      90%       { opacity: 0.18; }
+      100%      { top: 80%; opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 120px 24px 100px;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: heroFadeUp 0.8s var(--ease) 0.5s forwards;
+    }
+
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--red);
+      opacity: 0.7;
+    }
+
+    .hero-headline {
+      font-family: var(--font-head);
+      font-size: clamp(3rem, 9vw, 7.5rem);
+      font-weight: 400;
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: heroFadeUp 0.8s var(--ease) 0.7s forwards;
+    }
+
+    .hero-headline span {
+      color: var(--red);
+    }
+
+    .hero-sub {
+      font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.62);
+      letter-spacing: 0.08em;
+      max-width: 560px;
+      margin: 0 auto 46px;
+      opacity: 0;
+      animation: heroFadeUp 0.8s var(--ease) 0.9s forwards;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: heroFadeUp 0.8s var(--ease) 1.1s forwards;
+    }
+
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FAA Badge */
+    .faa-badge {
+      position: absolute;
+      bottom: 80px;
+      left: 36px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      opacity: 0;
+      animation: heroFadeUp 0.8s var(--ease) 1.3s forwards;
+      backdrop-filter: blur(8px);
+    }
+
+    .faa-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--red);
+      animation: pulse 2.5s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(226,28,33,0.6); }
+      50%       { box-shadow: 0 0 0 6px rgba(226,28,33,0); }
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      animation: heroFadeUp 0.8s var(--ease) 1.5s forwards;
+    }
+
+    .scroll-hint span {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 1.5px solid rgba(255,255,255,0.3);
+      border-bottom: 1.5px solid rgba(255,255,255,0.3);
+      transform: rotate(45deg);
+      animation: arrowBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes arrowBounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50%       { transform: rotate(45deg) translateY(6px); }
+    }
+
+    /* ============================================================
+       SERVICES SECTION
+       ============================================================ */
+    #services {
+      padding: var(--section-pad);
+      background: var(--surface);
+      position: relative;
+    }
+
+    #services::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s;
+      cursor: default;
+    }
+
+    .service-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 16px 48px rgba(226, 28, 33, 0.22);
+      border-color: rgba(226, 28, 33, 0.35);
+    }
+
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      color: var(--red);
+      flex-shrink: 0;
+    }
+
+    .service-title {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .service-desc {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    /* ============================================================
+       GALLERY SECTION
+       ============================================================ */
+    #gallery {
+      padding: var(--section-pad);
+      background: var(--black);
+    }
+
+    .gallery-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      aspect-ratio: 4 / 3;
+      cursor: pointer;
+      background: var(--card);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s var(--ease);
+    }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      transition: background 0.35s var(--ease);
+      pointer-events: none;
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s var(--ease);
+      z-index: 2;
+    }
+
+    .gallery-overlay svg {
+      width: 40px;
+      height: 40px;
+      color: var(--white);
+      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+    }
+
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item:hover::after { background: rgba(0, 0, 0, 0.42); }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(0, 0, 0, 0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s var(--ease);
+      backdrop-filter: blur(6px);
+    }
+
+    #lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox-img-wrap {
+      position: relative;
+      max-width: min(92vw, 1100px);
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lightbox-img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: var(--radius);
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.7);
+      transition: opacity 0.2s;
+    }
+
+    .lightbox-btn {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      transition: background 0.2s, transform 0.2s;
+      z-index: 9001;
+    }
+
+    .lightbox-btn:hover {
+      background: rgba(226, 28, 33, 0.3);
+      border-color: var(--red);
+      transform: translateY(-50%) scale(1.08);
+    }
+
+    .lightbox-btn svg { width: 20px; height: 20px; }
+
+    #lightbox-prev { left: 20px; }
+    #lightbox-next { right: 20px; }
+
+    #lightbox-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.3rem;
+      z-index: 9002;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    #lightbox-close:hover {
+      background: rgba(226, 28, 33, 0.3);
+      border-color: var(--red);
+    }
+
+    .lightbox-counter {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      color: rgba(255,255,255,0.45);
+      z-index: 9001;
+    }
+
+    /* ============================================================
+       ABOUT SECTION
+       ============================================================ */
+    #about {
+      padding: var(--section-pad);
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #about::before {
+      content: '';
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(226,28,33,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .about-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-left {}
+
+    .about-big-text {
+      font-family: var(--font-head);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.0;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+
+    .about-big-text span { color: var(--red); }
+
+    .about-para {
+      font-size: 0.94rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+
+    .about-right {}
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 26px 28px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .stat-item:hover {
+      border-color: rgba(226,28,33,0.35);
+      box-shadow: 0 8px 32px rgba(226,28,33,0.12);
+    }
+
+    .stat-icon {
+      width: 38px;
+      height: 38px;
+      color: var(--red);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .stat-text {}
+
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       CONTACT SECTION
+       ============================================================ */
+    #contact {
+      padding: var(--section-pad);
+      background: var(--black);
+    }
+
+    .contact-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .contact-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    /* Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      min-height: 50px;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 44px;
+      cursor: pointer;
+    }
+
+    .form-group select option {
+      background: var(--card);
+      color: var(--white);
+    }
+
+    .form-group textarea {
+      min-height: 130px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(226, 28, 33, 0.12);
+    }
+
+    .form-group input.error,
+    .form-group select.error,
+    .form-group textarea.error {
+      border-color: var(--red);
+    }
+
+    .form-error-msg {
+      font-size: 0.7rem;
+      color: var(--red);
+      display: none;
+    }
+
+    .form-group.has-error .form-error-msg { display: block; }
+
+    .form-submit-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .form-note {
+      font-size: 0.72rem;
+      color: var(--gray);
+    }
+
+    /* Contact info */
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    .contact-info-block {}
+
+    .contact-info-block h3 {
+      font-family: var(--font-head);
+      font-size: 1.25rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 18px;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-detail:last-child { border-bottom: none; }
+
+    .contact-detail-icon {
+      width: 20px;
+      height: 20px;
+      color: var(--red);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .contact-detail-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .contact-detail-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    .contact-detail-value {
+      font-size: 0.92rem;
+      font-weight: 400;
+      color: var(--white);
+    }
+
+    .contact-detail-value a {
+      transition: color 0.2s;
+    }
+
+    .contact-detail-value a:hover { color: var(--red); }
+
+    /* Social icons */
+    .social-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-link {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+    .social-link svg {
+      width: 18px;
+      height: 18px;
+      color: var(--gray);
+      transition: color 0.2s;
+    }
+
+    .social-link:hover {
+      background: var(--red-dim);
+      border-color: var(--red);
+      transform: translateY(-2px);
+    }
+
+    .social-link:hover svg { color: var(--white); }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .footer-logo {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+    }
+
+    .footer-logo span { color: var(--red); }
+
+    .footer-tagline {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      color: var(--gray);
+      text-transform: uppercase;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--light-gray);
+    }
+
+    /* Back to top */
+    #back-to-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 800;
+      width: 46px;
+      height: 46px;
+      background: var(--red);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      box-shadow: 0 4px 20px rgba(226, 28, 33, 0.4);
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s, background 0.2s;
+    }
+
+    #back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    #back-to-top:hover { background: #ff2a30; }
+    #back-to-top svg { width: 20px; height: 20px; }
+
+    /* ============================================================
+       RESPONSIVE — TABLET
+       ============================================================ */
+    @media (max-width: 1024px) {
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 52px;
+      }
+
+      .contact-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      :root { --nav-h: 64px; }
+
+      .nav-links { display: none; }
+
+      .hamburger { display: flex; }
+
+      .mobile-nav { display: flex; }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .faa-badge {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 72px;
+        white-space: nowrap;
+      }
+    }
+
+    @media (max-width: 480px) {
+      :root {
+        --section-pad: 72px 20px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-ctas .btn {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .lightbox-btn { display: none; }
+
+      #navbar { padding: 0 20px; }
+    }
+    /* ============================================================
+       INTRO / BOOT SCREEN
+       ============================================================ */
+    #intro-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: #0a0a0a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #intro-screen.slide-out {
+      transform: translateY(-100%);
+      transition: transform 0.52s cubic-bezier(0.76, 0, 0.98, 0.6);
+      pointer-events: none;
+    }
+
+    .intro-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+      padding: 24px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    /* ---- Drone ---- */
+    .intro-drone-wrap {
+      position: relative;
+      width: 130px;
+      height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: introDroneFly 0.55s cubic-bezier(0.12, 0.82, 0.38, 1) forwards;
+    }
+
+    .intro-drone-wrap.hovering {
+      animation: introDroneHover 2.6s ease-in-out infinite;
+    }
+
+    @keyframes introDroneFly {
+      0%   { transform: translateX(calc(-50vw - 240px)); filter: blur(12px); opacity: 0.7; }
+      55%  { filter: blur(2px); opacity: 1; }
+      78%  { transform: translateX(10px); filter: blur(0); }
+      90%  { transform: translateX(-5px); }
+      100% { transform: translateX(0); filter: blur(0); }
+    }
+
+    @keyframes introDroneHover {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    /* Motion trail — sweeps in as drone arrives, fades out */
+    .intro-drone-trail {
+      position: absolute;
+      right: calc(100% - 8px);
+      top: 50%;
+      transform: translateY(-50%);
+      height: 2px;
+      pointer-events: none;
+      background: linear-gradient(to left, rgba(226, 28, 33, 0.55), transparent);
+      animation: introTrail 0.65s ease-out forwards;
+    }
+
+    @keyframes introTrail {
+      0%   { width: 0;     opacity: 0; }
+      20%  { opacity: 1; }
+      55%  { width: 220px; opacity: 0.7; }
+      100% { width: 260px; opacity: 0; }
+    }
+
+    .intro-drone-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ---- Brand name ---- */
+    .intro-brand {
+      text-align: center;
+      line-height: 1;
+    }
+
+    .intro-brand-line1 {
+      font-family: 'Bebas Neue', 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.6rem, 10vw, 5rem);
+      letter-spacing: 0.22em;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+    }
+
+    .intro-brand-line2 {
+      font-family: 'Barlow', sans-serif;
+      font-size: clamp(0.6rem, 2.2vw, 0.88rem);
+      font-weight: 600;
+      letter-spacing: 0.55em;
+      color: #E21C21;
+      display: flex;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    .intro-brand span {
+      display: inline-block;
+      opacity: 0;
+      animation: introLetter 0.09s ease-out forwards;
+      animation-delay: calc(0.60s + var(--i, 0) * 0.05s);
+    }
+
+    @keyframes introLetter {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---- HUD progress area ---- */
+    .intro-hud {
+      width: min(320px, 78vw);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .intro-progress-track {
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 1px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Glowing red fill */
+    .intro-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #E21C21;
+      border-radius: 1px;
+      box-shadow: 0 0 10px rgba(226, 28, 33, 0.85), 0 0 4px rgba(226, 28, 33, 1);
+      transition: width 1.8s linear;
+    }
+
+    .intro-hud-text {
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.4);
+      text-align: center;
+      min-height: 1em;
+      transition: opacity 0.08s;
+    }
+
+    @keyframes introFlicker {
+      0%   { opacity: 0.2; }
+      15%  { opacity: 1; }
+      30%  { opacity: 0.15; }
+      50%  { opacity: 0.95; }
+      70%  { opacity: 0.4; }
+      85%  { opacity: 1; }
+      100% { opacity: 1; }
+    }
+
+    .intro-hud-text.flicker {
+      animation: introFlicker 0.22s steps(1) forwards;
+    }
+
+    /* Body state while intro is active */
+    body.intro-active {
+      opacity: 1 !important;
+      animation: none !important;
+      overflow: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .intro-drone-wrap { animation: none; opacity: 1; transform: none; filter: none; }
+      .intro-drone-trail { display: none; }
+      .intro-brand span  { animation: none; opacity: 1; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       INTRO / BOOT SCREEN
+       ============================================================ -->
+  <div id="intro-screen" role="presentation" aria-hidden="true">
+    <div class="intro-inner">
+
+      <!-- Drone fly-in -->
+      <div class="intro-drone-wrap" id="intro-drone">
+        <div class="intro-drone-trail"></div>
+        <svg class="intro-drone-svg" viewBox="0 0 130 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Body -->
+          <rect x="47" y="33" width="36" height="18" rx="5" fill="#E21C21"/>
+          <!-- Arms -->
+          <line x1="5"   y1="31" x2="47" y2="42" stroke="#E21C21" stroke-width="3"   stroke-linecap="round"/>
+          <line x1="125" y1="31" x2="83" y2="42" stroke="#E21C21" stroke-width="3"   stroke-linecap="round"/>
+          <line x1="5"   y1="53" x2="47" y2="42" stroke="#E21C21" stroke-width="3"   stroke-linecap="round"/>
+          <line x1="125" y1="53" x2="83" y2="42" stroke="#E21C21" stroke-width="3"   stroke-linecap="round"/>
+          <!-- Rotor discs -->
+          <ellipse cx="5"   cy="42" rx="16" ry="5.5" fill="none" stroke="#E21C21" stroke-width="2"   opacity="0.8"/>
+          <ellipse cx="125" cy="42" rx="16" ry="5.5" fill="none" stroke="#E21C21" stroke-width="2"   opacity="0.8"/>
+          <!-- Rotor cross hairs -->
+          <line x1="5"   y1="36" x2="5"   y2="48" stroke="#E21C21" stroke-width="1.5" opacity="0.35"/>
+          <line x1="-1"  y1="42" x2="11"  y2="42" stroke="#E21C21" stroke-width="1.5" opacity="0.35"/>
+          <line x1="125" y1="36" x2="125" y2="48" stroke="#E21C21" stroke-width="1.5" opacity="0.35"/>
+          <line x1="119" y1="42" x2="131" y2="42" stroke="#E21C21" stroke-width="1.5" opacity="0.35"/>
+          <!-- Camera gimbal -->
+          <rect x="56" y="51" width="18" height="12" rx="4" fill="rgba(226,28,33,0.65)"/>
+          <circle cx="65" cy="57" r="4.5" fill="white" opacity="0.55"/>
+          <circle cx="65" cy="57" r="2"   fill="#0a0a0a" opacity="0.75"/>
+          <!-- Status LEDs -->
+          <circle cx="50" cy="36" r="2.2" fill="white"   opacity="0.7"/>
+          <circle cx="80" cy="36" r="2.2" fill="#E21C21" opacity="0.9"/>
+        </svg>
+      </div>
+
+      <!-- Brand name — letter-by-letter -->
+      <div class="intro-brand">
+        <div class="intro-brand-line1">
+          <span style="--i:0">B</span><span style="--i:1">I</span><span style="--i:2">R</span><span style="--i:3">D</span><span style="--i:4">E</span><span style="--i:5">Y</span><span style="--i:6">E</span>
+        </div>
+        <div class="intro-brand-line2">
+          <span style="--i:7">P</span><span style="--i:8">R</span><span style="--i:9">O</span><span style="--i:10">M</span><span style="--i:11">O</span><span style="--i:12">T</span><span style="--i:13">I</span><span style="--i:14">O</span><span style="--i:15">N</span><span style="--i:16">S</span>
+        </div>
+      </div>
+
+      <!-- HUD — progress bar + cycling status text -->
+      <div class="intro-hud">
+        <div class="intro-progress-track">
+          <div class="intro-progress-fill" id="intro-bar"></div>
+        </div>
+        <div class="intro-hud-text" id="intro-hud-text">INITIALIZING...</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       NAVIGATION
+       ============================================================ -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+
+      <!-- Logo -->
+      <a href="#home" class="nav-logo" aria-label="BirdEye Promotions — Home">
+        <!-- Drone silhouette SVG -->
+        <svg class="nav-logo-icon" viewBox="0 0 80 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Body -->
+          <rect x="30" y="23" width="20" height="10" rx="3" fill="#E21C21"/>
+          <!-- Arms -->
+          <line x1="10" y1="24" x2="30" y2="28" stroke="#E21C21" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="70" y1="24" x2="50" y2="28" stroke="#E21C21" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="10" y1="32" x2="30" y2="28" stroke="#E21C21" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="70" y1="32" x2="50" y2="28" stroke="#E21C21" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Rotors -->
+          <ellipse cx="10" cy="28" rx="9" ry="3.5" fill="none" stroke="#E21C21" stroke-width="1.8" opacity="0.75"/>
+          <ellipse cx="70" cy="28" rx="9" ry="3.5" fill="none" stroke="#E21C21" stroke-width="1.8" opacity="0.75"/>
+          <!-- Camera -->
+          <rect x="36" y="32" width="8" height="6" rx="2" fill="rgba(226,28,33,0.6)"/>
+          <circle cx="40" cy="35" r="2" fill="#fff" opacity="0.5"/>
+        </svg>
+        <div class="nav-logo-text">
+          <span class="brand-name">BIRDEYE</span>
+          <span class="brand-sub">Promotions</span>
+        </div>
+      </a>
+
+      <!-- Desktop nav links -->
+      <ul class="nav-links" role="list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav" id="mobile-nav" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <ul role="list">
+      <li><a href="#home"     class="mobile-nav-link">Home</a></li>
+      <li><a href="#services" class="mobile-nav-link">Services</a></li>
+      <li><a href="#about"    class="mobile-nav-link">About</a></li>
+      <li><a href="#gallery"  class="mobile-nav-link">Gallery</a></li>
+      <li><a href="#contact"  class="mobile-nav-link">Contact</a></li>
+    </ul>
+    <div class="mobile-nav-contact">
+      <a href="tel:2676257916">267-625-7916</a>
+      <a href="mailto:Tony@birdeyepromotions.com">Tony@birdeyepromotions.com</a>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+       HERO SECTION
+       ============================================================ -->
+  <section id="home" aria-label="Hero">
+    <div class="hero-bg" aria-hidden="true">
+      <!-- CSS fallback: slow aerial gradient + grid, always underneath -->
+      <div class="hero-bg-css"></div>
+      <!-- Video: Wix hosted, muted autoplay loop; hidden on error → CSS fallback shows -->
+      <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto">
+        <source src="https://video.wixstatic.com/video/9ff052_25fd46b7959b4302a607a08e25496fae/720p/mp4/file.mp4" type="video/mp4" />
+      </video>
+      <!-- Dark overlay: rgba(0,0,0,0.55) -->
+      <div class="hero-overlay"></div>
+      <!-- Vignette + scan line sit above overlay -->
+      <div class="hero-vignette"></div>
+      <div class="hero-scanline"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow" aria-hidden="true">South Tampa, Florida</div>
+
+      <h1 class="hero-headline">
+        We Capture<br />
+        The World<br />
+        <span>From Above</span>
+      </h1>
+
+      <p class="hero-sub">
+        Professional Aerial Videography &amp; Photography &mdash; FAA Certified
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#gallery" class="btn btn-primary">View Our Work</a>
+        <a href="#contact" class="btn btn-outline">Get a Quote</a>
+      </div>
+    </div>
+
+    <div class="faa-badge" aria-label="FAA Approved">
+      <span class="faa-dot" aria-hidden="true"></span>
+      FAA Approved
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SERVICES SECTION
+       ============================================================ -->
+  <section id="services" aria-labelledby="services-title">
+    <div class="services-header">
+      <div class="section-label fade-in">What We Do</div>
+      <h2 class="section-title fade-in delay-1" id="services-title">Drone Services</h2>
+      <p class="section-sub fade-in delay-2">Professional Photography &nbsp;&middot;&nbsp; Videography &nbsp;&middot;&nbsp; Printing &amp; Framing &nbsp;&middot;&nbsp; Editing</p>
+    </div>
+
+    <div class="services-grid">
+
+      <!-- Card 1 -->
+      <div class="service-card fade-in delay-1">
+        <!-- Camera/drone icon -->
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="4" y="14" width="40" height="26" rx="4" stroke="currentColor" stroke-width="2"/>
+          <circle cx="24" cy="27" r="8" stroke="currentColor" stroke-width="2"/>
+          <circle cx="24" cy="27" r="4" stroke="currentColor" stroke-width="2"/>
+          <path d="M14 14V11a2 2 0 0 1 2-2h4l2 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="37" cy="20" r="1.5" fill="currentColor"/>
+          <!-- Mini drone top -->
+          <path d="M8 10h4M36 10h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+          <circle cx="8" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+          <circle cx="40" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+        </svg>
+        <h3 class="service-title">Aerial Photography &amp; Video</h3>
+        <p class="service-desc">Capture sensational aerial videos — anywhere from your business storefront to the tips of skyscrapers. The sky is the limit so go big or go home!</p>
+        <a href="mailto:Tony@birdeyepromotions.com?subject=Aerial%20Photography%20%26%20Video%20Quote" class="btn btn-outline btn-sm">Book Now</a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="service-card fade-in delay-2">
+        <!-- Building/house icon -->
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M6 42V20L18 8l12 12V42" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M30 20h12v22H30V20z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <rect x="14" y="28" width="8" height="14" rx="1" stroke="currentColor" stroke-width="2"/>
+          <rect x="32" y="24" width="5" height="5" rx="1" stroke="currentColor" stroke-width="2"/>
+          <rect x="32" y="34" width="5" height="5" rx="1" stroke="currentColor" stroke-width="2"/>
+          <path d="M6 20H2M6 20l12-12M42 20h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+        </svg>
+        <h3 class="service-title">Real Estate &amp; Property</h3>
+        <p class="service-desc">Your property won't move without the right footage to showcase the landscape and surrounding areas. Call us to set up a video session today.</p>
+        <a href="mailto:Tony@birdeyepromotions.com?subject=Real%20Estate%20%26%20Property%20Quote" class="btn btn-outline btn-sm">Book Now</a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="service-card fade-in delay-3">
+        <!-- Megaphone/star icon -->
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M6 16h6l20-8v28L12 28H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M12 28l4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M36 20c4 0 6 2 6 4s-2 4-6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M42 10l-2 4M44 18l-4 1M44 28l-4-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+        </svg>
+        <h3 class="service-title">Marketing &amp; Events</h3>
+        <p class="service-desc">When you take experiences and put them on camera, you have memories that will last an eternity. Let us do your next big event.</p>
+        <a href="mailto:Tony@birdeyepromotions.com?subject=Marketing%20%26%20Events%20Quote" class="btn btn-outline btn-sm">Book Now</a>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="service-card fade-in delay-4">
+        <!-- Crane/buildings icon -->
+        <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="20" y="22" width="22" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+          <rect x="24" y="28" width="5" height="5" rx="1" stroke="currentColor" stroke-width="2"/>
+          <rect x="33" y="28" width="5" height="5" rx="1" stroke="currentColor" stroke-width="2"/>
+          <rect x="24" y="36" width="5" height="6" stroke="currentColor" stroke-width="2"/>
+          <rect x="33" y="36" width="5" height="6" stroke="currentColor" stroke-width="2"/>
+          <!-- Crane arm -->
+          <line x1="8" y1="42" x2="8" y2="10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="8" y1="10" x2="32" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="14" y1="10" x2="8" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+          <line x1="32" y1="10" x2="32" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 2" opacity="0.7"/>
+          <circle cx="32" cy="22" r="2" fill="currentColor" opacity="0.7"/>
+        </svg>
+        <h3 class="service-title">Construction &amp; Inspection</h3>
+        <p class="service-desc">Shoot your portfolio to have an example of your hard work. Whether you're building a high rise, doing inspections, or fiber optics — we're the eye!</p>
+        <a href="mailto:Tony@birdeyepromotions.com?subject=Construction%20%26%20Inspection%20Quote" class="btn btn-outline btn-sm">Book Now</a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       GALLERY SECTION
+       ============================================================ -->
+  <section id="gallery" aria-labelledby="gallery-title">
+    <div class="gallery-header">
+      <div class="section-label fade-in">Portfolio</div>
+      <h2 class="section-title fade-in delay-1" id="gallery-title">Our Work</h2>
+      <p class="section-sub fade-in delay-2">Click any image to view full size</p>
+    </div>
+
+    <div class="gallery-grid container" role="list">
+
+      <div class="gallery-item fade-in" role="listitem" tabindex="0" data-index="0" aria-label="Gallery image 1">
+        <img src="https://static.wixstatic.com/media/87bacb6b89bd4e14afa01e4660d667dc.jpeg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-in delay-1" role="listitem" tabindex="0" data-index="1" aria-label="Gallery image 2">
+        <img src="https://static.wixstatic.com/media/ae79cd1c7e5b49d98224f489ac3ebd1f.jpeg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-in delay-2" role="listitem" tabindex="0" data-index="2" aria-label="Gallery image 3">
+        <img src="https://static.wixstatic.com/media/a1c08034e2474c8e8f5ce433e5380032.jpeg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-in" role="listitem" tabindex="0" data-index="3" aria-label="Gallery image 4">
+        <img src="https://static.wixstatic.com/media/cad5973f03dc4186a155e04437c7ccc9.jpeg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-in delay-1" role="listitem" tabindex="0" data-index="4" aria-label="Gallery image 5">
+        <img src="https://static.wixstatic.com/media/8ec2f7b62e7648f1b2589af18ff47a1c.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-in delay-2" role="listitem" tabindex="0" data-index="5" aria-label="Gallery image 6">
+        <img src="https://static.wixstatic.com/media/9ff052_78f9516c9b5b43e09b0bb9025ed5fc8c~mv2.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-in" role="listitem" tabindex="0" data-index="6" aria-label="Gallery image 7">
+        <img src="https://static.wixstatic.com/media/9ff052_105528a16de5459880f8b8eee2cf3d66~mv2_d_2121_1414_s_2.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-in delay-1" role="listitem" tabindex="0" data-index="7" aria-label="Gallery image 8">
+        <img src="https://static.wixstatic.com/media/9ff052_c67a7042093f44e6975cb35b99f7265b~mv2_d_2212_3165_s_2.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-in delay-2" role="listitem" tabindex="0" data-index="8" aria-label="Gallery image 9">
+        <img src="https://static.wixstatic.com/media/9ff052_6d98406687834c958b5539d30b7ecf8e~mv2_d_4256_2832_s_4_2.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-in" role="listitem" tabindex="0" data-index="9" aria-label="Gallery image 10">
+        <img src="https://static.wixstatic.com/media/9ff052_36af560ee5954fe5a9b84b23caa489cb~mv2_d_3134_1945_s_2.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
+        </div>
+      </div>
+
+      <div class="gallery-item fade-in delay-1" role="listitem" tabindex="0" data-index="10" aria-label="Gallery image 11">
+        <img src="https://static.wixstatic.com/media/9ff052_a702a34b86e54a1fbdfa19a697b3d1ec~mv2_d_2736_3648_s_4_2.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+        <div class="gallery-overlay" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button id="lightbox-close" aria-label="Close image viewer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="lightbox-img-wrap">
+      <img id="lightbox-img" src="" alt="Gallery image" />
+    </div>
+    <button class="lightbox-btn" id="lightbox-prev" aria-label="Previous image">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="lightbox-btn" id="lightbox-next" aria-label="Next image">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div class="lightbox-counter" id="lightbox-counter" aria-live="polite"></div>
+  </div>
+
+
+  <!-- ============================================================
+       ABOUT SECTION
+       ============================================================ -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="about-inner">
+
+      <div class="about-left">
+        <div class="section-label fade-in">Who We Are</div>
+        <h2 class="about-big-text fade-in delay-1" id="about-title">
+          We Take Pictures<br />
+          &amp; Videos<br />
+          <span>From Above</span>
+        </h2>
+        <p class="about-para fade-in delay-2">
+          Based in South Tampa, Florida, BirdEye Promotions is led by Tony — an FAA-certified drone pilot and aerial cinematographer with a passion for capturing the world from a perspective most people never see. Whether it's a luxury waterfront property, a city-wide commercial campaign, a once-in-a-lifetime event, or a construction site that needs precision documentation, Tony brings a cinematic eye and professional-grade equipment to every shoot.
+        </p>
+        <p class="about-para fade-in delay-3">
+          Serving real estate agents, property managers, event planners, commercial brands, and construction firms across the Greater Tampa Bay area — and beyond.
+        </p>
+        <div class="fade-in delay-4">
+          <a href="#contact" class="btn btn-primary">Request a Quote</a>
+        </div>
+      </div>
+
+      <div class="about-right">
+        <div class="stats-grid">
+
+          <div class="stat-item fade-in delay-1">
+            <svg class="stat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="2"/>
+              <path d="M24 14v10l6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+            </svg>
+            <div class="stat-text">
+              <div class="stat-num" data-target="faa">FAA Certified</div>
+              <div class="stat-label">Licensed Drone Operator</div>
+            </div>
+          </div>
+
+          <div class="stat-item fade-in delay-2">
+            <svg class="stat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M24 4C17.37 4 12 9.37 12 16c0 9 12 26 12 26s12-17 12-26c0-6.63-5.37-12-12-12z" stroke="currentColor" stroke-width="2"/>
+              <circle cx="24" cy="16" r="4" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <div class="stat-text">
+              <div class="stat-num">South Tampa</div>
+              <div class="stat-label">Tampa Bay, Florida</div>
+            </div>
+          </div>
+
+          <div class="stat-item fade-in delay-3">
+            <svg class="stat-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="6" y="8" width="36" height="34" rx="3" stroke="currentColor" stroke-width="2"/>
+              <path d="M6 18h36" stroke="currentColor" stroke-width="2"/>
+              <path d="M16 4v8M32 4v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <rect x="12" y="24" width="6" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="21" y="24" width="6" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="30" y="24" width="6" height="5" rx="1" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <div class="stat-text">
+              <div class="stat-num">7 Days</div>
+              <div class="stat-label">Available Every Day</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CONTACT SECTION
+       ============================================================ -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="contact-header">
+      <div class="section-label fade-in">Get In Touch</div>
+      <h2 class="section-title fade-in delay-1" id="contact-title">Request a Quote</h2>
+      <p class="section-sub fade-in delay-2">Tell us about your project and we'll get back to you quickly</p>
+    </div>
+
+    <div class="contact-inner container">
+
+      <!-- Form -->
+      <form class="contact-form fade-in" id="contact-form" novalidate aria-label="Quote request form">
+
+        <div class="form-row">
+          <div class="form-group" id="fg-name">
+            <label for="f-name">Full Name *</label>
+            <input type="text" id="f-name" name="name" placeholder="Your name" required autocomplete="name" />
+            <span class="form-error-msg" role="alert">Please enter your name.</span>
+          </div>
+          <div class="form-group" id="fg-email">
+            <label for="f-email">Email Address *</label>
+            <input type="email" id="f-email" name="email" placeholder="you@example.com" required autocomplete="email" />
+            <span class="form-error-msg" role="alert">Please enter a valid email.</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group" id="fg-phone">
+            <label for="f-phone">Phone Number</label>
+            <input type="tel" id="f-phone" name="phone" placeholder="(555) 555-5555" autocomplete="tel" />
+          </div>
+          <div class="form-group" id="fg-service">
+            <label for="f-service">Service Type *</label>
+            <select id="f-service" name="service" required>
+              <option value="" disabled selected>Select a service...</option>
+              <option value="Aerial Photo/Video">Aerial Photo / Video</option>
+              <option value="Real Estate">Real Estate &amp; Property</option>
+              <option value="Marketing Event">Marketing &amp; Events</option>
+              <option value="Construction/Inspection">Construction / Inspection</option>
+              <option value="Other">Other</option>
+            </select>
+            <span class="form-error-msg" role="alert">Please select a service type.</span>
+          </div>
+        </div>
+
+        <div class="form-group" id="fg-message">
+          <label for="f-message">Message *</label>
+          <textarea id="f-message" name="message" placeholder="Tell us about your project — location, date, any specific requirements..." required></textarea>
+          <span class="form-error-msg" role="alert">Please include a message.</span>
+        </div>
+
+        <div class="form-submit-row">
+          <button type="submit" class="btn btn-primary">Send Message</button>
+          <span class="form-note">Or email us directly at <a href="mailto:Tony@birdeyepromotions.com" style="color: var(--red);">Tony@birdeyepromotions.com</a></span>
+        </div>
+
+      </form>
+
+      <!-- Contact info -->
+      <div class="contact-info fade-in delay-2">
+
+        <div class="contact-info-block">
+          <h3>Contact Tony</h3>
+
+          <div class="contact-detail">
+            <svg class="contact-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <div class="contact-detail-text">
+              <span class="contact-detail-label">Location</span>
+              <span class="contact-detail-value">South Tampa, Florida</span>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <svg class="contact-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.95-1.84a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.71 2.02z"/>
+            </svg>
+            <div class="contact-detail-text">
+              <span class="contact-detail-label">Phone</span>
+              <span class="contact-detail-value"><a href="tel:2676257916">267-625-7916</a></span>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <svg class="contact-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+            <div class="contact-detail-text">
+              <span class="contact-detail-label">Email</span>
+              <span class="contact-detail-value"><a href="mailto:Tony@birdeyepromotions.com">Tony@birdeyepromotions.com</a></span>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <svg class="contact-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <div class="contact-detail-text">
+              <span class="contact-detail-label">Availability</span>
+              <span class="contact-detail-value">7 Days a Week</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="contact-info-block">
+          <h3>Follow Along</h3>
+          <div class="social-row">
+
+            <!-- Facebook -->
+            <a href="#" class="social-link" aria-label="BirdEye Promotions on Facebook" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/birdeyepromotions" class="social-link" aria-label="BirdEye Promotions on Instagram" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+
+            <!-- YouTube -->
+            <a href="#" class="social-link" aria-label="BirdEye Promotions on YouTube" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+                <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a0a0a"/>
+              </svg>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">BIRD<span>EYE</span></div>
+      <p class="footer-tagline">South Tampa, Florida &nbsp;&middot;&nbsp; FAA Certified Drone Operator</p>
+      <p class="footer-copy">&copy; 2025 BirdEye Promotions. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button id="back-to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      // ============================================================
+      // INTRO / BOOT SCREEN
+      // ============================================================
+      (function runIntro() {
+        const screen = document.getElementById('intro-screen');
+        if (!screen) return;
+
+        // Check sessionStorage (graceful — may be blocked in private mode)
+        let alreadyPlayed = false;
+        try { alreadyPlayed = !!sessionStorage.getItem('birdeye_intro'); } catch (e) {}
+
+        // Also skip for users who prefer reduced motion
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (alreadyPlayed || prefersReducedMotion) {
+          screen.remove();
+          return;
+        }
+
+        // Lock body scroll; force body visible (intro screen covers it)
+        document.body.classList.add('intro-active');
+
+        const droneWrap = document.getElementById('intro-drone');
+        const bar       = document.getElementById('intro-bar');
+        const hudText   = document.getElementById('intro-hud-text');
+
+        const phrases = ['INITIALIZING...', 'GPS LOCKED', 'CAMERA ONLINE', 'LAUNCHING'];
+        let phraseIdx = 0;
+
+        function setPhrase(text) {
+          hudText.style.opacity = '0';
+          setTimeout(function () {
+            hudText.textContent = text;
+            hudText.style.opacity = '1';
+            hudText.classList.remove('flicker');
+            // force reflow so animation re-triggers
+            void hudText.offsetWidth;
+            hudText.classList.add('flicker');
+          }, 80);
+        }
+
+        // t=150ms — sweep progress bar left→right over 1.8s
+        setTimeout(function () {
+          bar.style.width = '100%';
+        }, 150);
+
+        // t=630ms / 1110ms / 1590ms — cycle HUD phrases
+        // (150ms bar-start offset + 480ms per phrase)
+        var phraseTimes = [630, 1110, 1590];
+        phraseTimes.forEach(function (t, i) {
+          setTimeout(function () {
+            phraseIdx = i + 1;
+            setPhrase(phrases[phraseIdx]);
+          }, t);
+        });
+
+        // t=620ms — drone lands → switch to idle hover
+        setTimeout(function () {
+          if (droneWrap) droneWrap.classList.add('hovering');
+        }, 620);
+
+        // t=2350ms — slide intro upward off screen
+        setTimeout(function () {
+          screen.classList.add('slide-out');
+
+          // t=2870ms — remove from DOM, unlock body, mark session
+          setTimeout(function () {
+            document.body.style.opacity = '1'; // lock before class removal
+            document.body.classList.remove('intro-active');
+            screen.remove();
+            try { sessionStorage.setItem('birdeye_intro', '1'); } catch (e) {}
+          }, 520);
+        }, 2350);
+      })();
+
+
+      // ============================================================
+      // HERO VIDEO — GRACEFUL FALLBACK
+      // ============================================================
+      const heroVideo = document.getElementById('hero-video');
+      if (heroVideo) {
+        let videoPlaying = false;
+
+        heroVideo.addEventListener('playing', () => { videoPlaying = true; });
+
+        // Catch media errors (bad URL, CORS, codec unsupported)
+        heroVideo.addEventListener('error', function () {
+          this.style.display = 'none';
+        }, true); // capture phase catches errors from <source> children
+
+        // Catch stalled / slow network: if not playing after 6s, assume failure
+        setTimeout(() => {
+          if (!videoPlaying && heroVideo.readyState < 3) {
+            heroVideo.style.display = 'none';
+          }
+        }, 6000);
+      }
+
+
+      // ============================================================
+      // NAV SCROLL BEHAVIOR
+      // ============================================================
+      const navbar = document.getElementById('navbar');
+
+      function handleNavScroll() {
+        if (window.scrollY > 40) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      }
+
+      window.addEventListener('scroll', handleNavScroll, { passive: true });
+      handleNavScroll();
+
+
+      // ============================================================
+      // HAMBURGER MENU
+      // ============================================================
+      const hamburger  = document.getElementById('hamburger');
+      const mobileNav  = document.getElementById('mobile-nav');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+      let menuOpen = false;
+
+      function openMenu() {
+        menuOpen = true;
+        hamburger.classList.add('open');
+        mobileNav.classList.add('open');
+        hamburger.setAttribute('aria-expanded', 'true');
+        hamburger.setAttribute('aria-label', 'Close menu');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        menuOpen = false;
+        hamburger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open menu');
+        document.body.style.overflow = '';
+      }
+
+      hamburger.addEventListener('click', () => {
+        menuOpen ? closeMenu() : openMenu();
+      });
+
+      mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+      // Close on outside tap
+      mobileNav.addEventListener('click', (e) => {
+        if (e.target === mobileNav) closeMenu();
+      });
+
+      // ESC key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && menuOpen) closeMenu();
+      });
+
+
+      // ============================================================
+      // SMOOTH SCROLL FOR ANCHOR LINKS
+      // ============================================================
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          const target = document.querySelector(targetId);
+          if (!target) return;
+          e.preventDefault();
+          const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 72;
+          const top = target.getBoundingClientRect().top + window.scrollY - navH;
+          window.scrollTo({ top, behavior: 'smooth' });
+        });
+      });
+
+
+      // ============================================================
+      // INTERSECTION OBSERVER — SCROLL FADE-INS
+      // ============================================================
+      const fadeEls = document.querySelectorAll('.fade-in');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      fadeEls.forEach(el => observer.observe(el));
+
+
+      // ============================================================
+      // GALLERY LIGHTBOX
+      // ============================================================
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const lightbox      = document.getElementById('lightbox');
+      const lbImg         = document.getElementById('lightbox-img');
+      const lbClose       = document.getElementById('lightbox-close');
+      const lbPrev        = document.getElementById('lightbox-prev');
+      const lbNext        = document.getElementById('lightbox-next');
+      const lbCounter     = document.getElementById('lightbox-counter');
+
+      // Build image array from gallery
+      const images = Array.from(galleryItems).map(item => ({
+        src: item.querySelector('img').src,
+        alt: item.querySelector('img').alt
+      }));
+
+      let currentIndex = 0;
+      let lbTouchStartX = 0;
+
+      function openLightbox(index) {
+        currentIndex = index;
+        showLightboxImage(currentIndex);
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        lbImg.focus();
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      function showLightboxImage(index) {
+        lbImg.style.opacity = '0';
+        setTimeout(() => {
+          lbImg.src = images[index].src;
+          lbImg.alt = images[index].alt;
+          lbCounter.textContent = (index + 1) + ' / ' + images.length;
+          lbImg.style.opacity = '1';
+        }, 120);
+        lbImg.style.transition = 'opacity 0.2s';
+      }
+
+      function prevImage() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showLightboxImage(currentIndex);
+      }
+
+      function nextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        showLightboxImage(currentIndex);
+      }
+
+      // Open on click or Enter/Space
+      galleryItems.forEach((item, i) => {
+        item.addEventListener('click', () => openLightbox(i));
+        item.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openLightbox(i);
+          }
+        });
+      });
+
+      lbClose.addEventListener('click', closeLightbox);
+      lbPrev.addEventListener('click', prevImage);
+      lbNext.addEventListener('click', nextImage);
+
+      // Close on overlay background click
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        if (e.key === 'Escape')       closeLightbox();
+        if (e.key === 'ArrowLeft')    prevImage();
+        if (e.key === 'ArrowRight')   nextImage();
+      });
+
+      // Touch swipe
+      lightbox.addEventListener('touchstart', (e) => {
+        lbTouchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+
+      lightbox.addEventListener('touchend', (e) => {
+        const delta = e.changedTouches[0].clientX - lbTouchStartX;
+        if (Math.abs(delta) > 50) {
+          delta < 0 ? nextImage() : prevImage();
+        }
+      }, { passive: true });
+
+
+      // ============================================================
+      // CONTACT FORM — MAILTO SUBMIT
+      // ============================================================
+      const form = document.getElementById('contact-form');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        let valid = true;
+
+        // Validate name
+        const name    = document.getElementById('f-name');
+        const email   = document.getElementById('f-email');
+        const service = document.getElementById('f-service');
+        const message = document.getElementById('f-message');
+
+        function setError(inputEl, groupId, show) {
+          const group = document.getElementById(groupId);
+          if (!group) return;
+          if (show) {
+            group.classList.add('has-error');
+            inputEl.classList.add('error');
+          } else {
+            group.classList.remove('has-error');
+            inputEl.classList.remove('error');
+          }
+        }
+
+        // Name
+        if (!name.value.trim()) {
+          setError(name, 'fg-name', true); valid = false;
+        } else { setError(name, 'fg-name', false); }
+
+        // Email
+        const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRx.test(email.value.trim())) {
+          setError(email, 'fg-email', true); valid = false;
+        } else { setError(email, 'fg-email', false); }
+
+        // Service
+        if (!service.value) {
+          setError(service, 'fg-service', true); valid = false;
+        } else { setError(service, 'fg-service', false); }
+
+        // Message
+        if (!message.value.trim()) {
+          setError(message, 'fg-message', true); valid = false;
+        } else { setError(message, 'fg-message', false); }
+
+        if (!valid) return;
+
+        // Build mailto
+        const subject = encodeURIComponent('Quote Request — ' + service.value + ' — BirdEye Promotions');
+        const body = encodeURIComponent(
+          'Name: ' + name.value.trim() + '\n' +
+          'Email: ' + email.value.trim() + '\n' +
+          'Phone: ' + (document.getElementById('f-phone').value.trim() || 'Not provided') + '\n' +
+          'Service: ' + service.value + '\n\n' +
+          'Message:\n' + message.value.trim()
+        );
+
+        window.location.href = 'mailto:Tony@birdeyepromotions.com?subject=' + subject + '&body=' + body;
+      });
+
+      // Clear errors on input
+      ['f-name','f-email','f-service','f-message'].forEach(id => {
+        const el = document.getElementById(id);
+        const groupId = 'fg-' + id.replace('f-', '');
+        el.addEventListener('input', () => {
+          el.classList.remove('error');
+          const group = document.getElementById(groupId);
+          if (group) group.classList.remove('has-error');
+        });
+      });
+
+
+      // ============================================================
+      // BACK TO TOP BUTTON
+      // ============================================================
+      const backToTop = document.getElementById('back-to-top');
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      }, { passive: true });
+
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+
+    })();
+  </script>
+
+</body>
+</html>
