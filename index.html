@@ -412,6 +412,7 @@
       justify-content: center;
       overflow: hidden;
       background: var(--black);
+      will-change: transform; /* own compositor layer, so the WebGL grid doesn't repaint on scroll */
     }
 
     /* Hero background container */
@@ -475,6 +476,21 @@
       z-index: 2;
       pointer-events: none;
     }
+
+    /* Three.js perspective grid — transparent, drifts over the dimmed video.
+       Stays hidden unless WebGL starts, leaving the video and fallback as they are. */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .hero-grid.is-ready { opacity: 1; }
 
     /* Vignette — edge fade to black */
     .hero-vignette {
@@ -1813,6 +1829,8 @@
       </video>
       <!-- Dark overlay: rgba(0,0,0,0.55) -->
       <div class="hero-overlay"></div>
+      <!-- Three.js grid: above the dark overlay so the dimming doesn't wash it out -->
+      <canvas class="hero-grid" id="hero-grid"></canvas>
       <!-- Vignette + scan line sit above overlay -->
       <div class="hero-vignette"></div>
       <div class="hero-scanline"></div>
@@ -2425,6 +2443,185 @@
           }
         }, 6000);
       }
+
+
+      // ============================================================
+      // HERO THREE.JS GRID
+      // ============================================================
+      (function initHeroGrid() {
+        const canvas = document.getElementById('hero-grid');
+        const hero   = document.getElementById('home');
+        if (!canvas || !hero) return;
+
+        function supportsWebGL() {
+          try {
+            const test = document.createElement('canvas');
+            return !!(window.WebGLRenderingContext &&
+              (test.getContext('webgl2') || test.getContext('webgl')));
+          } catch (e) {
+            return false;
+          }
+        }
+
+        // Every failure path just removes the canvas: no grid, no visible error
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !supportsWebGL()) {
+          canvas.remove();
+          return;
+        }
+
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+        script.integrity = 'sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==';
+        script.crossOrigin = 'anonymous';
+        script.onerror = function () { canvas.remove(); };
+        script.onload = function () {
+          try {
+            startGrid();
+          } catch (e) {
+            canvas.remove();
+          }
+        };
+        document.head.appendChild(script);
+
+        function startGrid() {
+          const isMobile   = window.matchMedia('(max-width: 768px)').matches;
+          const hasPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+          const GRID_SIZE     = 480;
+          const GRID_DIVISIONS = isMobile ? 48 : 96;
+          const CELL_SIZE     = GRID_SIZE / GRID_DIVISIONS;
+          const DRIFT_SPEED   = 2.5;  // world units per second
+          const FADE_DISTANCE = 180;  // lines dissolve by this depth, which hides the grid's edge
+          const BASE_PITCH    = THREE.MathUtils.degToRad(-10);
+          const MAX_TILT      = THREE.MathUtils.degToRad(3);
+          const FRAME_MS      = 1000 / 60;
+
+          const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: !isMobile });
+          renderer.setClearColor(0x000000, 0);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2));
+
+          const scene  = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 300);
+          camera.position.set(0, 6, 0);
+          camera.rotation.order = 'YXZ'; // yaw then pitch, so tilt never rolls the horizon
+          camera.rotation.x = BASE_PITCH;
+
+          // Fades by depth instead of THREE.Fog, which blends toward a solid colour
+          // and would draw dark lines over the video
+          const material = new THREE.ShaderMaterial({
+            transparent: true,
+            depthWrite: false,
+            uniforms: {
+              color:       { value: new THREE.Color(0xE21C21) },
+              opacity:     { value: 0.15 },
+              fadeDistance: { value: FADE_DISTANCE }
+            },
+            vertexShader: [
+              'varying float vDepth;',
+              'void main() {',
+              '  vec4 viewPosition = modelViewMatrix * vec4(position, 1.0);',
+              '  vDepth = -viewPosition.z;',
+              '  gl_Position = projectionMatrix * viewPosition;',
+              '}'
+            ].join('\n'),
+            fragmentShader: [
+              'uniform vec3 color;',
+              'uniform float opacity;',
+              'uniform float fadeDistance;',
+              'varying float vDepth;',
+              'void main() {',
+              '  float fade = 1.0 - smoothstep(fadeDistance * 0.25, fadeDistance, vDepth);',
+              '  gl_FragColor = vec4(color, opacity * fade);',
+              '}'
+            ].join('\n')
+          });
+
+          const gridGeometry = new THREE.GridHelper(GRID_SIZE, GRID_DIVISIONS).geometry;
+          const grid = new THREE.LineSegments(gridGeometry, material);
+          scene.add(grid);
+
+          function resize() {
+            const width  = hero.clientWidth;
+            const height = hero.clientHeight;
+            if (!width || !height) return;
+            renderer.setSize(width, height, false); // false: CSS keeps the canvas sized
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+          }
+          resize();
+          new ResizeObserver(function () {
+            resize();
+            renderer.render(scene, camera);
+          }).observe(hero);
+
+          // Cursor position as -1..1 from screen centre
+          let targetX = 0;
+          let targetY = 0;
+          let tiltX = 0;
+          let tiltY = 0;
+          if (hasPointer && !isMobile) {
+            window.addEventListener('mousemove', function (e) {
+              targetX = (e.clientX / window.innerWidth) * 2 - 1;
+              targetY = (e.clientY / window.innerHeight) * 2 - 1;
+            }, { passive: true });
+          }
+
+          let rafId = null;
+          let lastFrame = 0;
+          let heroInView = true;
+          let contextLost = false;
+
+          function frame(now) {
+            rafId = requestAnimationFrame(frame);
+
+            // Skip refreshes that come early, capping fast displays at 60fps.
+            // The 1ms margin stops a 60Hz display from dropping to 30fps on jitter.
+            const elapsed = now - lastFrame;
+            if (elapsed < FRAME_MS - 1) return;
+            lastFrame = now;
+            const dt = Math.min(elapsed, 100) / 1000;
+
+            // Moving forward by one full cell looks identical, so wrapping makes it endless
+            grid.position.z = (grid.position.z + DRIFT_SPEED * dt) % CELL_SIZE;
+
+            const ease = 1 - Math.exp(-dt * 4);
+            tiltX += (targetX - tiltX) * ease;
+            tiltY += (targetY - tiltY) * ease;
+            camera.rotation.y = -tiltX * MAX_TILT;
+            camera.rotation.x = BASE_PITCH - tiltY * MAX_TILT;
+
+            renderer.render(scene, camera);
+          }
+
+          // Runs only while the tab is visible and the hero is on screen
+          function updateLoop() {
+            const shouldRun = !contextLost && heroInView && document.visibilityState === 'visible';
+            if (shouldRun && rafId === null) {
+              lastFrame = performance.now();
+              rafId = requestAnimationFrame(frame);
+            } else if (!shouldRun && rafId !== null) {
+              cancelAnimationFrame(rafId);
+              rafId = null;
+            }
+          }
+
+          document.addEventListener('visibilitychange', updateLoop);
+          new IntersectionObserver(function (entries) {
+            heroInView = entries[0].isIntersecting;
+            updateLoop();
+          }).observe(hero);
+
+          canvas.addEventListener('webglcontextlost', function () {
+            contextLost = true;
+            updateLoop();
+            canvas.remove();
+          });
+
+          renderer.render(scene, camera);
+          canvas.classList.add('is-ready');
+          updateLoop();
+        }
+      })();
 
 
       // ============================================================
