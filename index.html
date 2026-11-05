@@ -467,6 +467,23 @@
       z-index: 1;
     }
 
+    /* The hero background: night skyline with a slow zoom */
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: url('assets/images/tampa-skyline-night.jpg') center / cover no-repeat;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-photo { animation: heroPhotoZoom 12s ease-in-out infinite alternate; }
+    }
+
+    @keyframes heroPhotoZoom {
+      from { transform: scale(1); }
+      to   { transform: scale(1.08); }
+    }
+
     /* Dark overlay — rgba(0,0,0,0.55) over video (or fallback) */
     .hero-overlay {
       position: absolute;
@@ -673,6 +690,245 @@
     /* ============================================================
        SERVICES SECTION
        ============================================================ */
+    /* ============================================================
+       FEATURED WORK — VIDEO CARDS + LIGHTBOX
+       ============================================================ */
+    #featured {
+      padding: var(--section-pad);
+      background: var(--black);
+    }
+
+    .featured-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .video-card {
+      position: relative;
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: #111;
+      color: var(--white);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.3s var(--ease);
+    }
+
+    .video-card:hover {
+      border-color: rgba(226, 28, 33, 0.35);
+      box-shadow: 0 16px 48px rgba(226, 28, 33, 0.22);
+    }
+
+    .video-card:focus-visible {
+      outline: 2px solid var(--red);
+      outline-offset: 3px;
+    }
+
+    .video-card-poster {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+    }
+
+    /* Muted preview, fading in over the poster (its first frame) on hover */
+    .video-card-preview {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.35s var(--ease);
+    }
+
+    .video-card.is-previewing .video-card-preview { opacity: 1; }
+
+    .video-card-play {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 72px;
+      height: 72px;
+      margin: -36px 0 0 -36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--white);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+      transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+    }
+
+    .video-card:hover .video-card-play { transform: scale(1.08); }
+
+    .video-card.is-previewing .video-card-play {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+
+    .video-card-play svg {
+      width: 28px;
+      height: 28px;
+      margin-left: 4px; /* optical centring: a triangle's mass sits left of its box */
+      fill: var(--red);
+    }
+
+    .video-card-text {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 40px 20px 16px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    }
+
+    .video-card-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .video-card-title {
+      font-family: var(--font-head);
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+
+    /* Video modal: a centred player over the dimmed, blurred page. The width is capped
+       by the viewport height too, so a 16:9 player always fits with its header. */
+    #video-modal {
+      width: min(1120px, 92vw, calc((100dvh - 150px) * 16 / 9));
+      max-width: none;
+      max-height: none;
+      margin: auto;
+      padding: 0;
+      border: 0;
+      overflow: visible;
+      background: transparent;
+      color: var(--white);
+      animation: videoModalIn 0.28s var(--ease);
+    }
+
+    #video-modal::backdrop {
+      background: rgba(5, 5, 5, 0.86);
+      backdrop-filter: blur(12px);
+      animation: videoBackdropIn 0.28s var(--ease);
+    }
+
+    #video-modal.is-closing { animation: videoModalOut 0.18s ease-in forwards; }
+    #video-modal.is-closing::backdrop { animation: videoBackdropOut 0.18s ease-in forwards; }
+
+    @keyframes videoModalIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    }
+
+    @keyframes videoModalOut {
+      to { opacity: 0; transform: translateY(6px) scale(0.99); }
+    }
+
+    @keyframes videoBackdropIn { from { opacity: 0; } }
+    @keyframes videoBackdropOut { to { opacity: 0; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      #video-modal, #video-modal::backdrop,
+      #video-modal.is-closing, #video-modal.is-closing::backdrop { animation-duration: 0.01s; }
+    }
+
+    .video-modal-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .video-modal-tag {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .video-modal-title {
+      font-family: var(--font-head);
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+
+    #video-modal-close {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--white);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    #video-modal-close:hover {
+      background: rgba(226, 28, 33, 0.3);
+      border-color: var(--red);
+    }
+
+    .video-modal-stage {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      background: #000;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+    }
+
+    #video-modal-player {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    #video-modal-error {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: center;
+      color: var(--gray);
+    }
+
     #services {
       padding: var(--section-pad);
       background: var(--surface);
@@ -712,6 +968,32 @@
       gap: 16px;
       transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s;
       cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subliminal photo behind each card: 8% image under a dark overlay */
+    .service-card-bg {
+      position: absolute;
+      inset: 0;
+      background-position: center;
+      background-size: cover;
+      opacity: 0.08;
+      pointer-events: none;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to bottom, rgba(10, 10, 10, 0.1), rgba(10, 10, 10, 0.4));
+      pointer-events: none;
+    }
+
+    .service-card > :not(.service-card-bg) {
+      position: relative;
+      z-index: 2;
     }
 
     .service-card:hover {
@@ -756,12 +1038,72 @@
       margin-bottom: 56px;
     }
 
+    .gallery-filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 36px;
+    }
+
+    .gallery-filter {
+      padding: 8px 18px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--gray);
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .gallery-filter:hover { color: var(--white); border-color: var(--gray); }
+
+    .gallery-filter[aria-pressed="true"] {
+      color: var(--white);
+      border-color: var(--red);
+      background: var(--red-dim);
+    }
+
+    /* Six columns, so a tile can be a third, a half or the full width */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(6, 1fr);
       gap: 12px;
       max-width: var(--max-w);
       margin: 0 auto;
+      grid-auto-flow: dense;
+    }
+
+    @media (min-width: 769px) {
+      .gallery-item { grid-column: span 2; }
+      .gallery-item.is-half { grid-column: span 3; }
+
+      .gallery-item.is-feature {
+        grid-column: span 4;
+        grid-row: span 2;
+        aspect-ratio: auto;
+      }
+
+      .gallery-item.is-wide {
+        grid-column: 1 / -1;
+        aspect-ratio: 3 / 1;
+      }
+
+      /* Filters that would otherwise leave a gap in the row */
+      .gallery-grid[data-filter="real-estate"] .gallery-item,
+      .gallery-grid[data-filter="aerial"] .gallery-item:not(.is-wide) { grid-column: span 3; }
+      .gallery-grid[data-filter="hospitality"] .gallery-item { grid-column: 2 / span 4; }
+    }
+
+    @media (max-width: 768px) {
+      .gallery-item.is-feature { grid-column: 1 / -1; aspect-ratio: 1 / 1; }
+      .gallery-item.is-wide { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+      .gallery-item.is-solo-narrow { grid-column: 1 / -1; }
     }
 
     .gallery-item {
@@ -946,6 +1288,29 @@
     }
 
     .about-particles.is-ready { opacity: 1; }
+
+    /* Parallax skyline. Touch browsers don't reliably support fixed backgrounds, so
+       there it simply scrolls with the section. */
+    .about-photo {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: url('assets/images/tampa-skyline-night.jpg') center / cover no-repeat fixed;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    @media (hover: none) {
+      .about-photo { background-attachment: scroll; }
+    }
+
+    .about-shade {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(to bottom, rgba(17, 17, 17, 0.6), rgba(17, 17, 17, 0.2) 50%, rgba(17, 17, 17, 0.6));
+      pointer-events: none;
+    }
 
     .about-inner {
       position: relative;
@@ -1284,6 +1649,8 @@
       color: var(--light-gray);
     }
 
+    .footer-copy a { text-decoration: underline; }
+
     /* Back to top */
     #back-to-top {
       position: fixed;
@@ -1346,6 +1713,10 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+
       .form-row {
         grid-template-columns: 1fr;
       }
@@ -1390,7 +1761,9 @@
     /* The head script puts one of two classes on <html> before first paint:
        .intro-play — run the sequence; .intro-skip — repeat visit / reduced motion.
        runIntro() then adds step classes on the same element, in this order:
-       intro-reveal → intro-fade → intro-unlock → intro-logo + hero-go.
+       intro-go → intro-reveal → intro-fade → intro-unlock → intro-logo + hero-go.
+       intro-go waits for the 3D drone (or the fallback to the SVG one), which is
+       why everything below holds until it arrives.
 
        --intro-k scales every intro duration, here and in runIntro()'s timeline,
        so this is the only value that sets the length of the whole sequence. */
@@ -1472,9 +1845,13 @@
        one another: wrap = horizontal flight + blur, arc = vertical arc,
        bob = idle hover, rotors = spin. */
     .intro-drone-slot {
-      width: clamp(96px, 26vh, 200px);
-      height: clamp(96px, 26vh, 200px);
+      width: clamp(96px, min(26vh, 44vw), 200px);
+      height: clamp(96px, min(26vh, 44vw), 200px);
       flex-shrink: 0;
+    }
+
+    .intro-play:not(.intro-go) :is(.intro-drone-wrap, .intro-drone-arc, .intro-drone-bob, .intro-drone-trail) {
+      animation-play-state: paused;
     }
 
     .intro-drone-wrap {
@@ -1495,6 +1872,7 @@
     }
 
     .intro-drone-bob {
+      position: relative;
       width: 100%;
       height: 100%;
       animation: introDroneBob 1.5s ease-in-out var(--intro-flight) infinite;
@@ -1520,6 +1898,31 @@
       0%, 100% { transform: translateY(0); }
       50%      { transform: translateY(-4px); }
     }
+
+    /* The 3D drone. The canvas overhangs the slot so the model can be drawn larger
+       than the slot during the hover, then zoom out to exactly fill it on landing.
+       Its own banking replaces the blur, and the trail starts behind its wider body. */
+    .intro-drone-canvas {
+      position: absolute;
+      left: -50%;
+      top: -50%;
+      width: 200%;
+      height: 200%;
+      pointer-events: none;
+    }
+
+    .intro-drone-canvas.is-landed {
+      opacity: 0;
+      transition: opacity calc(0.15s * var(--intro-k)) linear;
+    }
+
+    .intro-drone-wrap.has-model {
+      animation-name: introDroneFly;
+      animation-duration: var(--intro-flight);
+      animation-timing-function: cubic-bezier(0.45, 0, 0.15, 1);
+    }
+
+    .has-model .intro-drone-trail { right: 135%; }
 
     /* Phase 3 — leaves the layout and flies to the nav slot. runIntro() writes
        the offsets and scale from getBoundingClientRect(), so any screen works. */
@@ -1572,15 +1975,33 @@
     }
 
     /* ---- Brand name ---- */
+    /* BIRDEYE flies in from the right and PROMOTIONS from the left; they wait
+       off screen (clipped by #intro-screen) until intro-reveal. */
     .intro-brand {
       text-align: center;
       line-height: 1;
-      opacity: 0;
     }
 
-    .intro-reveal .intro-brand {
-      opacity: 1;
-      transition: opacity calc(0.2s * var(--intro-k)) ease;
+    .intro-brand-line1,
+    .intro-brand-line2 {
+      animation: calc(0.5s * var(--intro-k)) cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .intro-brand-line1 { animation-name: introFromRight; }
+    .intro-brand-line2 { animation-name: introFromLeft; }
+
+    .intro-play:not(.intro-reveal) :is(.intro-brand-line1, .intro-brand-line2) {
+      animation-play-state: paused;
+    }
+
+    @keyframes introFromRight {
+      from { transform: translateX(100vw); }
+      to   { transform: translateX(0); }
+    }
+
+    @keyframes introFromLeft {
+      from { transform: translateX(-100vw); }
+      to   { transform: translateX(0); }
     }
 
     .intro-fade :is(.intro-brand, .intro-hud) {
@@ -1824,10 +2245,12 @@
     <div class="hero-bg" aria-hidden="true">
       <!-- CSS fallback: slow aerial gradient + grid, always underneath -->
       <div class="hero-bg-css"></div>
-      <!-- Video: Wix hosted, muted autoplay loop; hidden on error → CSS fallback shows -->
-      <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto">
-        <source src="https://video.wixstatic.com/video/9ff052_25fd46b7959b4302a607a08e25496fae/720p/mp4/file.mp4" type="video/mp4" />
-      </video>
+      <!-- Night skyline with a slow zoom -->
+      <div class="hero-photo"></div>
+      <!-- HERO_VIDEO: to use a background video, uncomment this; it sits over the photo,
+           which still shows if the video fails to play.
+      <video class="hero-video" id="hero-video" src="assets/videos/armature-works.mp4" autoplay muted loop playsinline preload="auto"></video>
+      -->
       <!-- Dark overlay: rgba(0,0,0,0.55) -->
       <div class="hero-overlay"></div>
       <!-- Vignette + scan line sit above overlay -->
@@ -1867,6 +2290,66 @@
 
 
   <!-- ============================================================
+       FEATURED WORK — VIDEO CARDS
+       ============================================================ -->
+  <section id="featured" aria-labelledby="featured-title">
+    <div class="featured-header">
+      <div class="section-label fade-in">In Motion</div>
+      <h2 class="section-title fade-in delay-1" id="featured-title">Featured Work</h2>
+    </div>
+
+    <div class="video-grid">
+      <button type="button" class="video-card fade-in" data-video="assets/videos/port-aerial.mp4" aria-label="Play video: Port &Amp; Skyline">
+        <img class="video-card-poster" src="assets/images/poster-port-aerial.jpg" alt="" loading="lazy" />
+        <video class="video-card-preview" src="assets/videos/port-aerial-preview.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <span class="video-card-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l16 9-16 9z"/></svg></span>
+        <span class="video-card-text">
+          <span class="video-card-tag">Cinematic Aerial</span>
+          <span class="video-card-title">PORT &amp; SKYLINE</span>
+        </span>
+      </button>
+
+      <button type="button" class="video-card fade-in delay-1" data-video="assets/videos/hotel-promo.mp4" aria-label="Play video: Hotel &Amp; Hospitality">
+        <img class="video-card-poster" src="assets/images/poster-hotel-promo.jpg" alt="" loading="lazy" />
+        <video class="video-card-preview" src="assets/videos/hotel-promo-preview.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <span class="video-card-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l16 9-16 9z"/></svg></span>
+        <span class="video-card-text">
+          <span class="video-card-tag">Commercial</span>
+          <span class="video-card-title">HOTEL &amp; HOSPITALITY</span>
+        </span>
+      </button>
+
+      <button type="button" class="video-card fade-in delay-2" data-video="assets/videos/armature-works.mp4" aria-label="Play video: Live Events">
+        <img class="video-card-poster" src="assets/images/poster-armature-works.jpg" alt="" loading="lazy" />
+        <video class="video-card-preview" src="assets/videos/armature-works-preview.mp4" muted loop playsinline preload="none" aria-hidden="true"></video>
+        <span class="video-card-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3l16 9-16 9z"/></svg></span>
+        <span class="video-card-text">
+          <span class="video-card-tag">Events</span>
+          <span class="video-card-title">LIVE EVENTS</span>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Video modal — the full video only loads once a card is clicked -->
+  <dialog id="video-modal" aria-labelledby="video-modal-title">
+    <div class="video-modal-head">
+      <div>
+        <span class="video-modal-tag" id="video-modal-tag"></span>
+        <h3 class="video-modal-title" id="video-modal-title"></h3>
+      </div>
+      <button type="button" id="video-modal-close" aria-label="Close video">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="video-modal-stage">
+      <video id="video-modal-player" controls playsinline></video>
+      <p id="video-modal-error" hidden>This video isn&rsquo;t available right now.</p>
+    </div>
+  </dialog>
+
+
+  <!-- ============================================================
        SERVICES SECTION
        ============================================================ -->
   <section id="services" aria-labelledby="services-title">
@@ -1880,6 +2363,7 @@
 
       <!-- Card 1 -->
       <div class="service-card fade-in delay-1">
+        <div class="service-card-bg" style="background-image: url('assets/images/go-bolts-silo.jpg')"></div>
         <!-- Camera/drone icon -->
         <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect x="4" y="14" width="40" height="26" rx="4" stroke="currentColor" stroke-width="2"/>
@@ -1899,6 +2383,7 @@
 
       <!-- Card 2 -->
       <div class="service-card fade-in delay-2">
+        <div class="service-card-bg" style="background-image: url('assets/images/real-estate-pool-1.jpg')"></div>
         <!-- Building/house icon -->
         <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M6 42V20L18 8l12 12V42" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -1915,6 +2400,7 @@
 
       <!-- Card 3 -->
       <div class="service-card fade-in delay-3">
+        <div class="service-card-bg" style="background-image: url('assets/images/don-cesar.jpg')"></div>
         <!-- Megaphone/star icon -->
         <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M6 16h6l20-8v28L12 28H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -1929,6 +2415,7 @@
 
       <!-- Card 4 -->
       <div class="service-card fade-in delay-4">
+        <div class="service-card-bg" style="background-image: url('assets/images/construction-shaft.jpg')"></div>
         <!-- Crane/buildings icon -->
         <svg class="service-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect x="20" y="22" width="22" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
@@ -1962,80 +2449,74 @@
       <p class="section-sub fade-in delay-2">Click any image to view full size</p>
     </div>
 
-    <div class="gallery-grid container" role="list">
+    <div class="gallery-filters" role="group" aria-label="Filter gallery by category">
+      <button type="button" class="gallery-filter" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" class="gallery-filter" data-filter="real-estate" aria-pressed="false">Real Estate</button>
+      <button type="button" class="gallery-filter" data-filter="commercial" aria-pressed="false">Commercial</button>
+      <button type="button" class="gallery-filter" data-filter="aerial" aria-pressed="false">Aerial</button>
+      <button type="button" class="gallery-filter" data-filter="hospitality" aria-pressed="false">Hospitality</button>
+    </div>
 
-      <div class="gallery-item fade-in" role="listitem" tabindex="0" data-index="0" aria-label="Gallery image 1">
-        <img src="https://static.wixstatic.com/media/87bacb6b89bd4e14afa01e4660d667dc.jpeg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+    <div class="gallery-grid container" id="gallery-grid" role="list">
+
+      <div class="gallery-item is-feature fade-in" role="listitem" tabindex="0" data-category="commercial" aria-label="Top-down view of a circular construction drill shaft">
+        <img src="assets/images/construction-shaft.jpg" alt="Top-down view of a circular construction drill shaft" loading="lazy" />
         <div class="gallery-overlay" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
         </div>
       </div>
 
-      <div class="gallery-item fade-in delay-1" role="listitem" tabindex="0" data-index="1" aria-label="Gallery image 2">
-        <img src="https://static.wixstatic.com/media/ae79cd1c7e5b49d98224f489ac3ebd1f.jpeg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+      <div class="gallery-item fade-in delay-1" role="listitem" tabindex="0" data-category="real-estate" aria-label="Luxury homes with pools in South Tampa, from above">
+        <img src="assets/images/real-estate-pool-1.jpg" alt="Luxury homes with pools in South Tampa, from above" loading="lazy" />
         <div class="gallery-overlay" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
         </div>
       </div>
 
-      <div class="gallery-item fade-in delay-2" role="listitem" tabindex="0" data-index="2" aria-label="Gallery image 3">
-        <img src="https://static.wixstatic.com/media/a1c08034e2474c8e8f5ce433e5380032.jpeg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+      <div class="gallery-item fade-in" role="listitem" tabindex="0" data-category="real-estate" aria-label="Waterfront home with a dock near St Pete Beach">
+        <img src="assets/images/waterfront-dock.jpg" alt="Waterfront home with a dock near St Pete Beach" loading="lazy" />
         <div class="gallery-overlay" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
         </div>
       </div>
 
-      <div class="gallery-item fade-in" role="listitem" tabindex="0" data-index="3" aria-label="Gallery image 4">
-        <img src="https://static.wixstatic.com/media/cad5973f03dc4186a155e04437c7ccc9.jpeg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+      <div class="gallery-item fade-in delay-1" role="listitem" tabindex="0" data-category="commercial" aria-label="Aerial view of a waterfront marine base">
+        <img src="assets/images/port-aerial.jpg" alt="Aerial view of a waterfront marine base" loading="lazy" />
         <div class="gallery-overlay" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
         </div>
       </div>
 
-      <div class="gallery-item fade-in delay-1" role="listitem" tabindex="0" data-index="4" aria-label="Gallery image 5">
-        <img src="https://static.wixstatic.com/media/8ec2f7b62e7648f1b2589af18ff47a1c.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+      <div class="gallery-item fade-in delay-2" role="listitem" tabindex="0" data-category="commercial" aria-label="Grain silo painted with Go Bolts">
+        <img src="assets/images/go-bolts-silo.jpg" alt="Grain silo painted with Go Bolts" loading="lazy" />
         <div class="gallery-overlay" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
         </div>
       </div>
 
-      <div class="gallery-item fade-in delay-2" role="listitem" tabindex="0" data-index="5" aria-label="Gallery image 6">
-        <img src="https://static.wixstatic.com/media/9ff052_78f9516c9b5b43e09b0bb9025ed5fc8c~mv2.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+      <div class="gallery-item fade-in" role="listitem" tabindex="0" data-category="aerial" aria-label="Downtown Tampa skyline at night">
+        <img src="assets/images/tampa-skyline-night.jpg" alt="Downtown Tampa skyline at night" loading="lazy" />
         <div class="gallery-overlay" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
         </div>
       </div>
 
-      <div class="gallery-item fade-in" role="listitem" tabindex="0" data-index="6" aria-label="Gallery image 7">
-        <img src="https://static.wixstatic.com/media/9ff052_105528a16de5459880f8b8eee2cf3d66~mv2_d_2121_1414_s_2.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+      <div class="gallery-item is-half fade-in delay-1" role="listitem" tabindex="0" data-category="aerial" aria-label="Sunset reflected over wetlands">
+        <img src="assets/images/sunset-wetlands.jpg" alt="Sunset reflected over wetlands" loading="lazy" />
         <div class="gallery-overlay" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
         </div>
       </div>
 
-      <div class="gallery-item fade-in delay-1" role="listitem" tabindex="0" data-index="7" aria-label="Gallery image 8">
-        <img src="https://static.wixstatic.com/media/9ff052_c67a7042093f44e6975cb35b99f7265b~mv2_d_2212_3165_s_2.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+      <div class="gallery-item is-half is-solo-narrow fade-in delay-2" role="listitem" tabindex="0" data-category="hospitality" aria-label="Aerial view of the Don CeSar Hotel on St Pete Beach">
+        <img src="assets/images/don-cesar.jpg" alt="Aerial view of the Don CeSar Hotel on St Pete Beach" loading="lazy" />
         <div class="gallery-overlay" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
         </div>
       </div>
 
-      <div class="gallery-item fade-in delay-2" role="listitem" tabindex="0" data-index="8" aria-label="Gallery image 9">
-        <img src="https://static.wixstatic.com/media/9ff052_6d98406687834c958b5539d30b7ecf8e~mv2_d_4256_2832_s_4_2.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
-        <div class="gallery-overlay" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-in" role="listitem" tabindex="0" data-index="9" aria-label="Gallery image 10">
-        <img src="https://static.wixstatic.com/media/9ff052_36af560ee5954fe5a9b84b23caa489cb~mv2_d_3134_1945_s_2.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
-        <div class="gallery-overlay" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
-        </div>
-      </div>
-
-      <div class="gallery-item fade-in delay-1" role="listitem" tabindex="0" data-index="10" aria-label="Gallery image 11">
-        <img src="https://static.wixstatic.com/media/9ff052_a702a34b86e54a1fbdfa19a697b3d1ec~mv2_d_2736_3648_s_4_2.jpg" alt="BirdEye Promotions aerial photography" loading="lazy" />
+      <div class="gallery-item is-wide fade-in" role="listitem" tabindex="0" data-category="aerial" aria-label="Top-down view of waves breaking on a beach">
+        <img src="assets/images/beach-waves.jpg" alt="Top-down view of waves breaking on a beach" loading="lazy" />
         <div class="gallery-overlay" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/><path d="M15 11h-4M11 9v4"/></svg>
         </div>
@@ -2066,6 +2547,8 @@
        ABOUT SECTION
        ============================================================ -->
   <section id="about" aria-labelledby="about-title">
+    <div class="about-photo" aria-hidden="true"></div>
+    <div class="about-shade" aria-hidden="true"></div>
     <canvas class="about-particles" id="about-particles" aria-hidden="true"></canvas>
     <div class="about-inner">
 
@@ -2287,6 +2770,7 @@
       <div class="footer-logo">BIRD<span>EYE</span></div>
       <p class="footer-tagline">South Tampa, Florida &nbsp;&middot;&nbsp; FAA Certified Drone Operator</p>
       <p class="footer-copy">&copy; 2025 BirdEye Promotions. All Rights Reserved.</p>
+      <p class="footer-copy">Intro animation based on <a href="https://sketchfab.com/3d-models/flying-drone-2ecfb55304a043a2a86353f70cc1cf92" target="_blank" rel="noopener">&ldquo;Flying Drone&rdquo;</a> by <a href="https://sketchfab.com/oscar.lopez.riviello" target="_blank" rel="noopener">DogexorRexUwU</a>, compressed from the original, licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC-BY-4.0</a>.</p>
     </div>
   </footer>
 
@@ -2304,6 +2788,50 @@
   <script>
     (function () {
       'use strict';
+
+      // ============================================================
+      // THREE.JS LOADING — shared by the intro drone and the About field
+      // ============================================================
+      const THREE_CORE = {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
+        integrity: 'sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ=='
+      };
+      const THREE_GLTF_LOADER = {
+        src: 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js',
+        integrity: 'sha512-7ceL/jbmqBN0LhulOMl+WpzZrUN0FJMpU74JPAnD34pXpP8ZcFwG07TAAS7t9UzYzqEJR0rFGVcc4ptwceXslA=='
+      };
+      const THREE_MESHOPT_DECODER = {
+        src: 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/meshopt_decoder.js',
+        integrity: 'sha512-wjcFox4IerKJHDTlER3iziM8a8BBlnjkTLNTdedBDqmsnc/YOFzc9NtzRrsPFvVLUjSG7nf8VRhDHUO7g5wCTg=='
+      };
+
+      // Each script is fetched once however many features ask for it
+      const scriptLoads = new Map();
+      function loadScript(asset) {
+        if (!scriptLoads.has(asset.src)) {
+          scriptLoads.set(asset.src, new Promise(function (resolve, reject) {
+            const script = document.createElement('script');
+            script.src = asset.src;
+            script.integrity = asset.integrity;
+            script.crossOrigin = 'anonymous';
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+          }));
+        }
+        return scriptLoads.get(asset.src);
+      }
+
+      function supportsWebGL() {
+        try {
+          const test = document.createElement('canvas');
+          return !!(window.WebGLRenderingContext &&
+            (test.getContext('webgl2') || test.getContext('webgl')));
+        } catch (e) {
+          return false;
+        }
+      }
+
 
       // ============================================================
       // INTRO / BOOT SCREEN
@@ -2332,6 +2860,9 @@
         const k = parseFloat(getComputedStyle(root).getPropertyValue('--intro-k')) || 1;
         const FLIGHT_MS = 600 * k;
         const SPIN_DOWN_MS = 950 * k;
+        const MODEL_WAIT_MS = 2500;
+        const MODEL_DEPART_AT = 1900; // on the intro timeline, before --intro-k
+        const MODEL_LAND_AT   = 3800;
 
         function at(ms, fn) { setTimeout(fn, ms * k); }
         function step() {
@@ -2390,7 +2921,17 @@
           wrap.style.height = from.height + 'px';
           wrap.classList.add('is-detached');
           void wrap.offsetWidth; // commit the start position so the transition runs
-          wrap.classList.add('is-flying');
+          if (droneModel) {
+            // The model flies its own path, loop included, frame by frame
+            wrap.style.transition = 'none';
+            droneModel.flyToNav({
+              x: to.left - from.left,
+              y: to.top - from.top,
+              scale: to.width / from.width
+            });
+          } else {
+            wrap.classList.add('is-flying');
+          }
 
           spinDown();
         }
@@ -2401,24 +2942,240 @@
             rotor.style.transform = getComputedStyle(rotor).transform;
           });
           slot.appendChild(drone);
+          drone.style.opacity = '';
+          if (droneModel) droneModel.dispose();
           screen.remove();
           try { sessionStorage.setItem('birdeye_intro', '1'); } catch (e) {}
         }
 
-        // Phase 1 — boot: drone flight and hover are CSS, starting on first paint
-        at(150, function () { bar.style.width = '100%'; });
-        at(600, function () { setPhrase('GPS LOCKED'); });
-        at(1200, function () { setPhrase('CAMERA ONLINE'); });
-        at(1800, function () { setPhrase('LAUNCHING'); });
+        // Loads the rotor-spinning model and hands back a controller for it. Rejects
+        // if anything is unavailable, and the caller falls back to the SVG drone.
+        function loadDroneModel() {
+          if (!supportsWebGL()) return Promise.reject(new Error('No WebGL'));
 
-        // Phase 2 — wordmark in, hold, then background and wordmark fade out
-        at(2500, step('intro-reveal'));
-        at(3050, step('intro-fade'));
+          return loadScript(THREE_CORE)
+            .then(function () {
+              return Promise.all([loadScript(THREE_GLTF_LOADER), loadScript(THREE_MESHOPT_DECODER)]);
+            })
+            .then(function () {
+              return new Promise(function (resolve, reject) {
+                new THREE.GLTFLoader()
+                  .setMeshoptDecoder(MeshoptDecoder)
+                  .load('drone.glb', resolve, undefined, reject);
+              });
+            })
+            .then(createDroneScene);
+        }
 
-        // Phase 3 — drone flies to the nav, logo text arrives with it
-        at(3200, flyToNav);
-        at(3500, step('intro-logo', 'hero-go')); // Phase 4 — hero staggers in
-        at(3200 + 950, land);
+        function createDroneScene(gltf) {
+          const FOV = 30;
+          const CENTER = new THREE.Vector3(0, 1.62, 0.1); // the model's middle in its own units
+          const FLIGHT_IN_MS  = 1100 * k;
+
+          // Angles in radians. The model's nose is +Z, so yaw 0 faces the viewer,
+          // +90deg faces the direction it flies in from, and -180deg faces away.
+          const ENTRY_YAW = 1.35;
+          const HOVER_YAW = -0.45;
+          const NAV_YAW   = -Math.PI;
+          const ENTRY_BANK = -0.42; // leaning into the flight
+          const FLARE_BANK = 0.16;  // leaning back to brake
+          const HOVER_TILT = 0.2;   // seen slightly from above
+          const NAV_TILT   = Math.PI / 2; // straight down, matching the SVG logo
+          const HOVER_DISTANCE = 7.4;  // model overhangs the slot
+          const NAV_DISTANCE   = 11.6; // model exactly fills the slot
+
+          // The flight to the nav, as fractions of NAV_FLIGHT_MS. It turns side-on and
+          // sets off, flies a full loop while barely advancing (so there's room above
+          // for it), then climbs the rest of the way, shrinking onto the logo.
+          const NAV_FLIGHT_MS = (MODEL_LAND_AT - MODEL_DEPART_AT) * k;
+          const TURN_END   = 0.12;
+          const LOOP_START = 0.06;
+          const LOOP_END   = 0.66;
+          const CLIMB_START = 0.62;
+          const LOOP_ADVANCE = 0.22; // share of the distance covered by the end of the loop
+          const LOOP_SCALE = 0.82;   // slightly smaller during the loop, to stay on screen
+          const LOOP_YAW   = -Math.PI / 2;
+          const LOOP_TILT  = 0.08;
+          let loopRadius = 0;
+          let navOffset = null; // { x, y, scale }: where the nav slot is, relative to here
+
+          const canvas = document.createElement('canvas');
+          canvas.className = 'intro-drone-canvas';
+
+          const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+          renderer.outputEncoding = THREE.sRGBEncoding;
+          renderer.setClearColor(0x000000, 0);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+          const scene  = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(FOV, 1, 0.1, 50);
+          camera.position.z = HOVER_DISTANCE;
+
+          scene.add(new THREE.HemisphereLight(0xffffff, 0x30343a, 1.5));
+          const key = new THREE.DirectionalLight(0xffffff, 2.2);
+          key.position.set(2, 4, 5);
+          scene.add(key);
+          // Red from behind, to lift the dark landing gear off the dark background
+          const rim = new THREE.DirectionalLight(0xE21C21, 2.5);
+          rim.position.set(-3, 1, -4);
+          scene.add(rim);
+
+          // Yaw is applied first, then tilt, then bank: bank and tilt stay screen-relative
+          const rig = new THREE.Group();
+          rig.rotation.order = 'ZXY';
+          gltf.scene.position.copy(CENTER).negate();
+          gltf.scene.traverse(function (node) {
+            if (node.isMesh) node.frustumCulled = false; // skinning moves it past its bounds
+          });
+          rig.add(gltf.scene);
+          scene.add(rig);
+
+          const mixer = new THREE.AnimationMixer(gltf.scene);
+          mixer.clipAction(THREE.AnimationClip.findByName(gltf.animations, 'hover')).play();
+
+          let flightStart = null;
+          let navStart = null;
+          let last = performance.now();
+          let rafId = 0;
+
+          function resize() {
+            const size = canvas.clientWidth;
+            if (size) renderer.setSize(size, size, false);
+          }
+
+          function clamp01(t) { return Math.max(0, Math.min(1, t)); }
+          function smooth(from, to, t) {
+            const x = clamp01((t - from) / (to - from));
+            return x * x * (3 - 2 * x);
+          }
+          function mix(a, b, t) { return a + (b - a) * t; }
+
+          function pose(now) {
+            const inT  = flightStart === null ? 0 : clamp01((now - flightStart) / FLIGHT_IN_MS);
+            const flightT = navStart === null ? 0 : clamp01((now - navStart) / NAV_FLIGHT_MS);
+            const navT = smooth(CLIMB_START, 1, flightT);
+
+            const turnT = smooth(0, TURN_END, flightT);
+            const loopT = smooth(LOOP_START, LOOP_END, flightT);
+            // A full turn is the same pose as none, so finish on 0 for the climb
+            const loopAngle = loopT < 1 ? loopT * Math.PI * 2 : 0;
+
+            const hoverYaw = mix(ENTRY_YAW, HOVER_YAW, smooth(0.5, 1, inT));
+            const bank = mix(ENTRY_BANK, 0, smooth(0.2, 0.7, inT)) +
+              FLARE_BANK * smooth(0.5, 0.8, inT) * (1 - smooth(0.8, 1, inT));
+
+            rig.rotation.y = mix(mix(hoverYaw, LOOP_YAW, turnT), NAV_YAW, navT);
+            rig.rotation.x = mix(mix(HOVER_TILT, LOOP_TILT, turnT), NAV_TILT, navT);
+            rig.rotation.z = (bank - loopAngle) * (1 - navT);
+            camera.position.z = mix(HOVER_DISTANCE, NAV_DISTANCE, navT);
+
+            if (navOffset) {
+              const advance = LOOP_ADVANCE * smooth(0, LOOP_END, flightT) +
+                (1 - LOOP_ADVANCE) * smooth(CLIMB_START, 1, flightT);
+              // Clockwise on screen: left, up, over the top, back down to the line of flight
+              const x = navOffset.x * advance - loopRadius * Math.sin(loopAngle);
+              const y = navOffset.y * advance - loopRadius * (1 - Math.cos(loopAngle));
+              const scale = mix(mix(1, LOOP_SCALE, smooth(0, LOOP_START * 2, flightT)), navOffset.scale, navT);
+              wrap.style.transform = 'translate(' + x + 'px, ' + y + 'px) scale(' + scale + ')';
+            }
+
+            // Rotors slow as it reaches the nav, where the logo's are still
+            mixer.timeScale = 1 - 0.8 * navT;
+          }
+
+          function draw(now) {
+            mixer.update(Math.min((now - last) / 1000, 0.1));
+            last = now;
+            pose(now);
+            renderer.render(scene, camera);
+          }
+
+          function frame(now) {
+            draw(now);
+            rafId = requestAnimationFrame(frame);
+          }
+
+          return {
+            canvas: canvas,
+            // Sized once in the page, with one frame drawn so its shaders compile
+            // now and not on the first frame of the flight
+            mount: function (parent) {
+              parent.appendChild(canvas);
+              resize();
+              // Wide enough to read as a loop, small enough to stay on a phone screen
+              const slotSize = parent.getBoundingClientRect().width;
+              loopRadius = Math.max(40, Math.min(slotSize * 0.62, window.innerWidth / 2 - slotSize * 0.65));
+              draw(performance.now());
+            },
+            start: function () {
+              flightStart = last = performance.now();
+              rafId = requestAnimationFrame(frame);
+            },
+            flyToNav: function (offset) {
+              navOffset = offset;
+              navStart = performance.now();
+            },
+            dispose: function () {
+              cancelAnimationFrame(rafId);
+              renderer.dispose();
+              renderer.forceContextLoss();
+            }
+          };
+        }
+
+        // Starts the timeline with the model, or with the SVG drone when model is null
+        function begin(model) {
+          droneModel = model;
+          if (model) {
+            wrap.classList.add('has-model');
+            drone.style.opacity = '0';
+            slot.appendChild(drone);
+            model.mount(bob);
+            model.start();
+          }
+          root.classList.add('intro-go');
+
+          // Phase 1 — boot: drone flight and hover are CSS, starting now. The wordmark
+          // flies in during the drone's approach, so they arrive together.
+          at(150, function () { bar.style.width = '100%'; });
+          at(550, step('intro-reveal'));
+          at(600, function () { setPhrase('GPS LOCKED'); });
+          at(1200, function () { setPhrase('CAMERA ONLINE'); });
+          at(1800, function () { setPhrase('LAUNCHING'); });
+
+          // Phase 2 — hold, then background and wordmark fade out
+          at(3050, step('intro-fade'));
+
+          // Phase 3 — drone flies to the nav, logo text arrives with it. The model
+          // leaves earlier, while the wordmark still holds, to fit its loop in.
+          at(model ? MODEL_DEPART_AT : 3200, flyToNav);
+          at(3500, step('intro-logo', 'hero-go')); // Phase 4 — hero staggers in
+
+          // Swap to the logo the moment the model settles on it
+          if (model) {
+            at(MODEL_LAND_AT, function () {
+              drone.style.transition = 'opacity ' + (150 * k) + 'ms linear';
+              drone.style.opacity = '1';
+              model.canvas.classList.add('is-landed');
+            });
+          }
+          at(3200 + 950, land);
+        }
+
+        // The model is a first-visit download: wait briefly for it, and if it's slow
+        // or unavailable, fly the SVG drone rather than holding up the site
+        let droneModel = null;
+        let begun = false;
+        function beginOnce(model) {
+          if (begun) {
+            if (model) model.dispose();
+            return;
+          }
+          begun = true;
+          begin(model);
+        }
+        setTimeout(function () { beginOnce(null); }, MODEL_WAIT_MS);
+        loadDroneModel().then(beginOnce, function () { beginOnce(null); });
       })();
 
 
@@ -2431,16 +3188,17 @@
 
         heroVideo.addEventListener('playing', () => { videoPlaying = true; });
 
-        // Catch media errors (bad URL, CORS, codec unsupported)
-        heroVideo.addEventListener('error', function () {
-          this.style.display = 'none';
-        }, true); // capture phase catches errors from <source> children
+        // Missing file, codec unsupported, etc.: the photo underneath shows instead
+        function hideVideo() {
+          heroVideo.style.display = 'none';
+        }
+
+        heroVideo.addEventListener('error', hideVideo);
+        if (heroVideo.error) hideVideo(); // failed before this script ran
 
         // Catch stalled / slow network: if not playing after 6s, assume failure
         setTimeout(() => {
-          if (!videoPlaying && heroVideo.readyState < 3) {
-            heroVideo.style.display = 'none';
-          }
+          if (!videoPlaying && heroVideo.readyState < 3) hideVideo();
         }, 6000);
       }
 
@@ -2453,16 +3211,6 @@
         const section = document.getElementById('about');
         if (!canvas || !section) return;
 
-        function supportsWebGL() {
-          try {
-            const test = document.createElement('canvas');
-            return !!(window.WebGLRenderingContext &&
-              (test.getContext('webgl2') || test.getContext('webgl')));
-          } catch (e) {
-            return false;
-          }
-        }
-
         // Every failure path just removes the canvas, leaving the plain dark section
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !supportsWebGL()) {
           canvas.remove();
@@ -2474,19 +3222,7 @@
           if (!entries[0].isIntersecting) return;
           loadObserver.disconnect();
 
-          const script = document.createElement('script');
-          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-          script.integrity = 'sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==';
-          script.crossOrigin = 'anonymous';
-          script.onerror = function () { canvas.remove(); };
-          script.onload = function () {
-            try {
-              startParticles();
-            } catch (e) {
-              canvas.remove();
-            }
-          };
-          document.head.appendChild(script);
+          loadScript(THREE_CORE).then(startParticles).catch(function () { canvas.remove(); });
         }, { rootMargin: '400px 0px' });
         loadObserver.observe(section);
 
@@ -2764,17 +3500,23 @@
       const lbNext        = document.getElementById('lightbox-next');
       const lbCounter     = document.getElementById('lightbox-counter');
 
-      // Build image array from gallery
-      const images = Array.from(galleryItems).map(item => ({
-        src: item.querySelector('img').src,
-        alt: item.querySelector('img').alt
-      }));
+      // The lightbox steps through whatever the current filter is showing
+      let images = [];
+
+      function visibleItems() {
+        return Array.from(galleryItems).filter(item => !item.hidden);
+      }
 
       let currentIndex = 0;
       let lbTouchStartX = 0;
 
-      function openLightbox(index) {
-        currentIndex = index;
+      function openLightbox(item) {
+        const visible = visibleItems();
+        images = visible.map(el => ({
+          src: el.querySelector('img').src,
+          alt: el.querySelector('img').alt
+        }));
+        currentIndex = visible.indexOf(item);
         showLightboxImage(currentIndex);
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -2808,12 +3550,12 @@
       }
 
       // Open on click or Enter/Space
-      galleryItems.forEach((item, i) => {
-        item.addEventListener('click', () => openLightbox(i));
+      galleryItems.forEach((item) => {
+        item.addEventListener('click', () => openLightbox(item));
         item.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            openLightbox(i);
+            openLightbox(item);
           }
         });
       });
@@ -2846,6 +3588,130 @@
           delta < 0 ? nextImage() : prevImage();
         }
       }, { passive: true });
+
+
+      // ============================================================
+      // GALLERY FILTERS
+      // ============================================================
+      const galleryGrid    = document.getElementById('gallery-grid');
+      const galleryFilters = document.querySelectorAll('.gallery-filter');
+
+      galleryFilters.forEach((button) => {
+        button.addEventListener('click', () => {
+          const filter = button.dataset.filter;
+          galleryFilters.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+          galleryGrid.dataset.filter = filter;
+          galleryItems.forEach((item) => {
+            item.hidden = filter !== 'all' && item.dataset.category !== filter;
+          });
+        });
+      });
+
+
+      // ============================================================
+      // FEATURED VIDEOS — hover previews, click for the modal
+      // ============================================================
+      const videoCards  = document.querySelectorAll('.video-card');
+      const videoModal  = document.getElementById('video-modal');
+      const modalPlayer = document.getElementById('video-modal-player');
+      const modalError  = document.getElementById('video-modal-error');
+      const MODAL_CLOSE_MS = 180; // matches videoModalOut
+
+      // Touch screens have no hover, so a tap goes straight to the modal
+      const canPreview =
+        window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+        !(navigator.connection && navigator.connection.saveData);
+
+      videoCards.forEach((card) => {
+        const preview = card.querySelector('.video-card-preview');
+        let wanted = false;
+
+        card.stopPreview = () => {
+          wanted = false;
+          card.classList.remove('is-previewing');
+          preview.pause();
+        };
+
+        if (!canPreview) return;
+
+        function startPreview() {
+          wanted = true;
+          preview.currentTime = 0;
+          // Failure just leaves the poster showing. The check covers leaving before it starts.
+          preview.play().then(() => {
+            if (wanted) card.classList.add('is-previewing');
+          }).catch(() => {});
+        }
+
+        card.addEventListener('pointerenter', startPreview);
+        card.addEventListener('pointerleave', card.stopPreview);
+        card.addEventListener('focus', () => {
+          if (card.matches(':focus-visible')) startPreview();
+        });
+        card.addEventListener('blur', card.stopPreview);
+      });
+
+      // Fetch the clips once the section starts scrolling in, so hover starts instantly.
+      // It sits directly under the full-height hero: the negative margin stops it
+      // counting as visible on page load, when its edge only touches the viewport's.
+      if (canPreview) {
+        const previewLoader = new IntersectionObserver((entries) => {
+          if (!entries[0].isIntersecting) return;
+          previewLoader.disconnect();
+          document.querySelectorAll('.video-card-preview').forEach((clip) => { clip.preload = 'auto'; });
+        }, { rootMargin: '-1px 0px' });
+        previewLoader.observe(document.getElementById('featured'));
+      }
+
+      videoCards.forEach((card) => {
+        card.addEventListener('click', () => {
+          card.stopPreview();
+          document.getElementById('video-modal-tag').textContent = card.querySelector('.video-card-tag').textContent;
+          document.getElementById('video-modal-title').textContent = card.querySelector('.video-card-title').textContent;
+          modalError.hidden = true;
+          modalPlayer.hidden = false;
+          modalPlayer.src = card.dataset.video;
+          document.body.style.overflow = 'hidden';
+          videoModal.showModal();
+          // A rejected play() is covered by the error event, or the visible controls
+          modalPlayer.play().catch(() => {});
+        });
+      });
+
+      modalPlayer.addEventListener('error', () => {
+        if (!videoModal.open) return;
+        modalPlayer.hidden = true;
+        modalError.hidden = false;
+      });
+
+      // Plays the exit animation, then really closes
+      function closeVideoModal() {
+        if (videoModal.classList.contains('is-closing')) return;
+        videoModal.classList.add('is-closing');
+        modalPlayer.pause();
+        setTimeout(() => videoModal.close(), MODAL_CLOSE_MS);
+      }
+
+      document.getElementById('video-modal-close').addEventListener('click', closeVideoModal);
+
+      // The dialog is exactly as big as its contents, so it's only the target for backdrop clicks
+      videoModal.addEventListener('click', (e) => {
+        if (e.target === videoModal) closeVideoModal();
+      });
+
+      // Esc: take over from the browser's instant close
+      videoModal.addEventListener('cancel', (e) => {
+        e.preventDefault();
+        closeVideoModal();
+      });
+
+      videoModal.addEventListener('close', () => {
+        videoModal.classList.remove('is-closing');
+        modalPlayer.removeAttribute('src');
+        modalPlayer.load();
+        document.body.style.overflow = '';
+      });
 
 
       // ============================================================
