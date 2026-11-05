@@ -1576,6 +1576,45 @@
 
     .contact-detail-value a:hover { color: var(--red); }
 
+    /* Contact form confirmation pop-up */
+    #form-dialog {
+      width: min(440px, 90vw);
+      margin: auto;
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--card);
+      color: var(--white);
+      text-align: center;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+      animation: videoModalIn 0.28s var(--ease);
+    }
+
+    #form-dialog::backdrop {
+      background: rgba(5, 5, 5, 0.75);
+      backdrop-filter: blur(6px);
+      animation: videoBackdropIn 0.28s var(--ease);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #form-dialog, #form-dialog::backdrop { animation-duration: 0.01s; }
+    }
+
+    #form-dialog-title {
+      margin-bottom: 12px;
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+    }
+
+    #form-dialog-text {
+      margin-bottom: 24px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
     /* Social icons */
     .social-row {
       display: flex;
@@ -2378,7 +2417,7 @@
         </svg>
         <h3 class="service-title">Aerial Photography &amp; Video</h3>
         <p class="service-desc">Capture sensational aerial videos — anywhere from your business storefront to the tips of skyscrapers. The sky is the limit so go big or go home!</p>
-        <a href="mailto:Tony@birdeyepromotions.com?subject=Aerial%20Photography%20%26%20Video%20Quote" class="btn btn-outline btn-sm">Book Now</a>
+        <a href="#contact" class="btn btn-outline btn-sm" data-service="Aerial Photo/Video">Book Now</a>
       </div>
 
       <!-- Card 2 -->
@@ -2395,7 +2434,7 @@
         </svg>
         <h3 class="service-title">Real Estate &amp; Property</h3>
         <p class="service-desc">Your property won't move without the right footage to showcase the landscape and surrounding areas. Call us to set up a video session today.</p>
-        <a href="mailto:Tony@birdeyepromotions.com?subject=Real%20Estate%20%26%20Property%20Quote" class="btn btn-outline btn-sm">Book Now</a>
+        <a href="#contact" class="btn btn-outline btn-sm" data-service="Real Estate">Book Now</a>
       </div>
 
       <!-- Card 3 -->
@@ -2410,7 +2449,7 @@
         </svg>
         <h3 class="service-title">Marketing &amp; Events</h3>
         <p class="service-desc">When you take experiences and put them on camera, you have memories that will last an eternity. Let us do your next big event.</p>
-        <a href="mailto:Tony@birdeyepromotions.com?subject=Marketing%20%26%20Events%20Quote" class="btn btn-outline btn-sm">Book Now</a>
+        <a href="#contact" class="btn btn-outline btn-sm" data-service="Marketing Event">Book Now</a>
       </div>
 
       <!-- Card 4 -->
@@ -2432,7 +2471,7 @@
         </svg>
         <h3 class="service-title">Construction &amp; Inspection</h3>
         <p class="service-desc">Shoot your portfolio to have an example of your hard work. Whether you're building a high rise, doing inspections, or fiber optics — we're the eye!</p>
-        <a href="mailto:Tony@birdeyepromotions.com?subject=Construction%20%26%20Inspection%20Quote" class="btn btn-outline btn-sm">Book Now</a>
+        <a href="#contact" class="btn btn-outline btn-sm" data-service="Construction/Inspection">Book Now</a>
       </div>
 
     </div>
@@ -2678,6 +2717,13 @@
 
       </form>
 
+      <!-- Confirmation pop-up for the contact form -->
+      <dialog id="form-dialog" aria-labelledby="form-dialog-title" aria-describedby="form-dialog-text">
+        <h3 id="form-dialog-title"></h3>
+        <p id="form-dialog-text"></p>
+        <button type="button" class="btn btn-primary" id="form-dialog-close">Close</button>
+      </dialog>
+
       <!-- Contact info -->
       <div class="contact-info fade-in delay-2">
 
@@ -2730,27 +2776,12 @@
           <h3>Follow Along</h3>
           <div class="social-row">
 
-            <!-- Facebook -->
-            <a href="#" class="social-link" aria-label="BirdEye Promotions on Facebook" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-              </svg>
-            </a>
-
             <!-- Instagram -->
             <a href="https://www.instagram.com/birdeyepromotions" class="social-link" aria-label="BirdEye Promotions on Instagram" target="_blank" rel="noopener noreferrer">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-              </svg>
-            </a>
-
-            <!-- YouTube -->
-            <a href="#" class="social-link" aria-label="BirdEye Promotions on YouTube" rel="noopener noreferrer">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
-                <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a0a0a"/>
               </svg>
             </a>
 
@@ -3715,9 +3746,34 @@
 
 
       // ============================================================
-      // CONTACT FORM — MAILTO SUBMIT
+      // CONTACT FORM — sends through Web3Forms, confirms with a pop-up
       // ============================================================
       const form = document.getElementById('contact-form');
+
+      // From web3forms.com, which emails it to the address submissions go to. It's public
+      // by design, so it's safe here.
+      const WEB3FORMS_ACCESS_KEY = '572351ef-d73f-4823-bb3a-8adc2ae085b6';
+
+      const formDialog      = document.getElementById('form-dialog');
+      const formDialogTitle = document.getElementById('form-dialog-title');
+      const formDialogText  = document.getElementById('form-dialog-text');
+
+      function showFormDialog(title, text) {
+        formDialogTitle.textContent = title;
+        formDialogText.textContent = text;
+        formDialog.showModal();
+      }
+
+      document.getElementById('form-dialog-close').addEventListener('click', () => formDialog.close());
+
+      // A click outside the box landed on the backdrop. The dialog has padding, so it
+      // can't be told apart by the click's target alone.
+      formDialog.addEventListener('click', (e) => {
+        const box = formDialog.getBoundingClientRect();
+        const inside = e.clientX >= box.left && e.clientX <= box.right &&
+                       e.clientY >= box.top && e.clientY <= box.bottom;
+        if (!inside) formDialog.close();
+      });
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -3765,17 +3821,58 @@
 
         if (!valid) return;
 
-        // Build mailto
-        const subject = encodeURIComponent('Quote Request — ' + service.value + ' — BirdEye Promotions');
-        const body = encodeURIComponent(
-          'Name: ' + name.value.trim() + '\n' +
-          'Email: ' + email.value.trim() + '\n' +
-          'Phone: ' + (document.getElementById('f-phone').value.trim() || 'Not provided') + '\n' +
-          'Service: ' + service.value + '\n\n' +
-          'Message:\n' + message.value.trim()
-        );
+        const phone = document.getElementById('f-phone').value.trim() || 'Not provided';
 
-        window.location.href = 'mailto:Tony@birdeyepromotions.com?subject=' + subject + '&body=' + body;
+        const submitBtn = form.querySelector('[type="submit"]');
+        const submitLabel = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_ACCESS_KEY,
+            subject: 'Quote Request — ' + service.value,
+            from_name: 'BirdEye Promotions website',
+            replyto: email.value.trim(),
+            name: name.value.trim(),
+            email: email.value.trim(),
+            phone: phone,
+            service: service.value,
+            message: message.value.trim()
+          })
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.success) throw new Error(data.message);
+            const firstName = name.value.trim().split(/\s+/)[0];
+            form.reset();
+            showFormDialog(
+              'Message Sent',
+              'Thanks, ' + firstName + '! Your request is on its way to Tony, and he\'ll be in touch soon.'
+            );
+          })
+          .catch(() => {
+            // The form stays filled in, so nothing they typed is lost
+            showFormDialog(
+              'Message Not Sent',
+              'Something went wrong on our end. Please try again, or email Tony@birdeyepromotions.com directly.'
+            );
+          })
+          .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitLabel;
+          });
+      });
+
+      // Book Now buttons head to the form with their service already chosen
+      document.querySelectorAll('[data-service]').forEach((link) => {
+        link.addEventListener('click', () => {
+          const serviceSelect = document.getElementById('f-service');
+          serviceSelect.value = link.dataset.service;
+          serviceSelect.dispatchEvent(new Event('input')); // clears any earlier error
+        });
       });
 
       // Clear errors on input
